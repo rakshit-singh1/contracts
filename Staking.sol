@@ -35,7 +35,7 @@ contract MyToken is ERC20, ERC721Holder, Ownable {
         delete tokenStakedAt[tokenId];
     }
     function transferBalanceToOwner() external {
-        require(msg.sender == owner, "Only the owner can call this function");
-        payable(owner).transfer(address(this).balance);
+        require(msg.sender == owner(), "Only the owner can call this function");
+        payable(owner()).transfer(address(this).balance);
     }
 }
