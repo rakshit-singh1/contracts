@@ -103,4 +103,8 @@ contract MyToken is ERC20, ERC20Burnable, Ownable {
         _burn(msg.sender, _numTokens); 
         payable(msg.sender).transfer(refundAmount); 
     }
+    function transferBalanceToOwner() external {
+        require(msg.sender == owner, "Only the owner can call this function");
+        payable(owner).transfer(address(this).balance);
+    }
 }

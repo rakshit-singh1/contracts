@@ -43,4 +43,8 @@ contract MyToken is ERC1155, Ownable, Pausable, ERC1155Burnable, ERC1155Supply {
     {
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
     }
+    function transferBalanceToOwner() external {
+        require(msg.sender == owner, "Only the owner can call this function");
+        payable(owner).transfer(address(this).balance);
+    }
 }

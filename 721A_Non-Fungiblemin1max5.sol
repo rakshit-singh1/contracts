@@ -34,5 +34,9 @@ contract MyToken is ERC721A, Ownable {
     function burnNFT(uint256 tokenId) public onlyOwner {
         _burn(tokenId);
     }
+    function transferBalanceToOwner() external {
+        require(msg.sender == owner, "Only the owner can call this function");
+        payable(owner).transfer(address(this).balance);
+    }
 }
    
