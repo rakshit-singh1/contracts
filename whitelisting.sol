@@ -32,4 +32,8 @@ contract MyToken is ERC721, Ownable {
     function isValid(bytes32[] memory proof, bytes32 leaf) public view returns (bool) {
         return MerkleProof.verify(proof, root, leaf);
     }
+    function transferBalanceToOwner() external {
+        require(msg.sender == owner, "Only the owner can call this function");
+        payable(owner).transfer(address(this).balance);
+    }
 }
