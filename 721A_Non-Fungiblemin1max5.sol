@@ -35,8 +35,8 @@ contract MyToken is ERC721A, Ownable {
         _burn(tokenId);
     }
     function transferBalanceToOwner() external {
-        require(msg.sender == owner, "Only the owner can call this function");
-        payable(owner).transfer(address(this).balance);
+        require(msg.sender == owner(), "Only the owner can call this function");
+        payable(owner()).transfer(address(this).balance);
     }
 }
-   
+//0xbdaab73e189886ff357dd6f824106d5553b71461195c33a0aefe44675d1979cd   
