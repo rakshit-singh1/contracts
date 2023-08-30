@@ -658,11 +658,11 @@
 			]
 		},
 		"whitelisting.sol": {
-			"keccak256": "0x5bba4a31d4869a42d327e2ee55fa6de1bb490c29eff471747b18371c0a146666",
+			"keccak256": "0xe98a833657a88d1b9c86b270597b1a78cf47f2b622ede9ec87fdb3de516de485",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://acd37a98e6748203d5cab4a128553f3719726299a57c9bdcc306d6f82dc31913",
-				"dweb:/ipfs/Qmc7D8KMbtXTeEcMqUsDuTxxAVQ7yh4VwGVPPFRpVges9g"
+				"bzz-raw://4d340622708cba65d2f721451813c15caa2efdcec8674375b1e50d35b8abfc10",
+				"dweb:/ipfs/QmZNR3eh6DV4H1JaBN6KyLP8GFNAwzyY8NMbVeDCA9jET7"
 			]
 		}
 	},
