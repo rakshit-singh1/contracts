@@ -82,7 +82,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"time.sol": "abc"
+			"student-sponser.sol": "abc"
 		},
 		"evmVersion": "paris",
 		"libraries": {},
@@ -96,7 +96,7 @@
 		"remappings": []
 	},
 	"sources": {
-		"time.sol": {
+		"student-sponser.sol": {
 			"keccak256": "0x226ab4173100616b0654acbbb52c6bbc325b5ee06217414d2363046c4fe45c3c",
 			"license": "GPL-3.0",
 			"urls": [
