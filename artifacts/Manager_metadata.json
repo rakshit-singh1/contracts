@@ -42,12 +42,25 @@
 						"type": "address"
 					}
 				],
-				"name": "isUserRegistered",
+				"name": "UserType",
 				"outputs": [
 					{
-						"internalType": "bool",
+						"internalType": "string",
 						"name": "",
-						"type": "bool"
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "UserType",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
 					}
 				],
 				"stateMutability": "view",
@@ -61,12 +74,25 @@
 						"type": "address"
 					}
 				],
-				"name": "isUserType",
+				"name": "isUserRegistered",
 				"outputs": [
 					{
-						"internalType": "string",
+						"internalType": "bool",
 						"name": "",
-						"type": "string"
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "isUserRegistered",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
 					}
 				],
 				"stateMutability": "view",
@@ -101,11 +127,11 @@
 	},
 	"sources": {
 		"student-sponser.sol": {
-			"keccak256": "0x89e8d92fbbecc19e21cf4f4efdb8e035fda4d36c78d73efc5216da476c5f0c23",
+			"keccak256": "0xf67e8b8ce324ef60694a35a173e5dc41a0594481e0fb2ee91761d6757d5766b5",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://94ea2ed77757da7f7d078e2788eac4ee9954c3fb87ba8ceb7723289d6c0d4797",
-				"dweb:/ipfs/QmciM7MLuyr3m5yHipEHH9vKHvHyvBCJifbdDEdyhitcpv"
+				"bzz-raw://e91663b468265ff3a12eae3cd821337d823d5741c4a25a539832949d7203bce7",
+				"dweb:/ipfs/QmUA9gU5ab7bzUWARco8RwoXEJQx2AsZZhAT2DqbZp1DVe"
 			]
 		}
 	},

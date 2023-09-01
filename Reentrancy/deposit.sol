@@ -5,18 +5,18 @@ contract DepositFunds {
     mapping(address => uint) public balances;
     bool internal locked;
 
-    modifier noReentrant() {
-        require(!locked, "No re-entrancy");
-        locked = true;
-        _;
-        locked = false;
-    }
+    // modifier noReentrant() {
+    //     require(!locked, "No re-entrancy");
+    //     locked = true;
+    //     _;
+    //     locked = false;
+    // }
 
     function deposit() public payable {
         balances[msg.sender] += msg.value;
     }
 
-    function withdraw() public noReentrant{
+     function withdraw() public /*noReentrant*/{
         uint bal = balances[msg.sender];
         require(bal > 0);
         (bool sent, ) = msg.sender.call{value: bal}("");
