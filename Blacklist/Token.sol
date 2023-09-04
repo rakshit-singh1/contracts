@@ -3,7 +3,6 @@ pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
 import "./Blacklist.sol";
 
 contract MyToken is ERC20, ERC20Burnable, Ownable, blacklist {
@@ -12,7 +11,7 @@ contract MyToken is ERC20, ERC20Burnable, Ownable, blacklist {
     uint256 public tokenPrice;
 
     constructor() ERC20("MyToken", "MTK") {
-        tokenPrice = 0.1 ether;
+        tokenPrice = 10 wei;
     }
 
     function setTokenPrice(uint256 _newPrice) external onlyOwner {
@@ -25,10 +24,10 @@ contract MyToken is ERC20, ERC20Burnable, Ownable, blacklist {
     function buyTokens(uint256 _numTokens) external payable {
         uint256 totalCost = _numTokens * tokenPrice;
         require(msg.value >= totalCost, "Insufficient ethers sent");
-        require(isBlacklisted(msg.sender)==true, "User Blacklisted");
+        require(isBlacklisted(msg.sender)!=true, "User Blacklisted");
         emit tokens_to_buy(balanceOf(owner()));
         require(balanceOf(owner()) >= _numTokens, "Not enough tokens in owner's balance");
-        transfer(msg.sender,_numTokens);
+        _transfer(owner(),msg.sender,_numTokens);
     }
 
     function burnUnsoldTokens() external onlyOwner {

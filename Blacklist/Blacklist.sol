@@ -1,17 +1,19 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.20;
+pragma solidity ^0.8.9;
 
-contract blacklist{
+import "@openzeppelin/contracts/access/Ownable.sol";
+
+contract blacklist is Ownable{
     enum status{
         notblacklisted,
         blacklisted  
     }
     mapping (address=>status) userStatus;
 
-    function AddBlacklisted(address a) public {
+    function AddBlacklisted(address a) public onlyOwner {
         userStatus[a]=status.blacklisted;
     }
-    function RemoveBlacklisted(address a) public {
+    function RemoveBlacklisted(address a) public onlyOwner {
         userStatus[a]=status.notblacklisted;
     }
     function isBlacklisted(address a) public view returns(bool){

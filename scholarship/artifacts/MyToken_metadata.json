@@ -80,58 +80,6 @@
 				"type": "event"
 			},
 			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
-						"internalType": "uint256",
-						"name": "a",
-						"type": "uint256"
-					}
-				],
-				"name": "tokens_to_buy",
-				"type": "event"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "a",
-						"type": "address"
-					}
-				],
-				"name": "AddBlacklisted",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_numTokens",
-						"type": "uint256"
-					}
-				],
-				"name": "Mint",
-				"outputs": [],
-				"stateMutability": "payable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "a",
-						"type": "address"
-					}
-				],
-				"name": "RemoveBlacklisted",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
 				"inputs": [
 					{
 						"internalType": "address",
@@ -199,57 +147,6 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "amount",
-						"type": "uint256"
-					}
-				],
-				"name": "burn",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "account",
-						"type": "address"
-					},
-					{
-						"internalType": "uint256",
-						"name": "amount",
-						"type": "uint256"
-					}
-				],
-				"name": "burnFrom",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "burnUnsoldTokens",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_numTokens",
-						"type": "uint256"
-					}
-				],
-				"name": "buyTokens",
-				"outputs": [],
-				"stateMutability": "payable",
-				"type": "function"
-			},
-			{
 				"inputs": [],
 				"name": "decimals",
 				"outputs": [
@@ -311,22 +208,10 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
-					{
-						"internalType": "address",
-						"name": "a",
-						"type": "address"
-					}
-				],
-				"name": "isBlacklisted",
-				"outputs": [
-					{
-						"internalType": "bool",
-						"name": "",
-						"type": "bool"
-					}
-				],
-				"stateMutability": "view",
+				"inputs": [],
+				"name": "mint",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -358,6 +243,19 @@
 			{
 				"inputs": [],
 				"name": "renounceOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "_newLimit",
+						"type": "uint256"
+					}
+				],
+				"name": "setNewLimit",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -508,12 +406,6 @@
 				"balanceOf(address)": {
 					"details": "See {IERC20-balanceOf}."
 				},
-				"burn(uint256)": {
-					"details": "Destroys `amount` tokens from the caller. See {ERC20-_burn}."
-				},
-				"burnFrom(address,uint256)": {
-					"details": "Destroys `amount` tokens from `account`, deducting from the caller's allowance. See {ERC20-_burn} and {ERC20-allowance}. Requirements: - the caller must have allowance for ``accounts``'s tokens of at least `amount`."
-				},
 				"decimals()": {
 					"details": "Returns the number of decimals used to get its user representation. For example, if `decimals` equals `2`, a balance of `505` tokens should be displayed to a user as `5.05` (`505 / 10 ** 2`). Tokens usually opt for a value of 18, imitating the relationship between Ether and Wei. This is the default value returned by this function, unless it's overridden. NOTE: This information is only used for _display_ purposes: it in no way affects any of the arithmetic of the contract, including {IERC20-balanceOf} and {IERC20-transfer}."
 				},
@@ -558,7 +450,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Blacklist/Token.sol": "MyToken"
+			"scholarship/getSmart.sol": "MyToken"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -596,14 +488,6 @@
 				"dweb:/ipfs/QmPV3FGYjVwvKSgAXKUN3r9T9GwniZz83CxBpM7vyj2G53"
 			]
 		},
-		"@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol": {
-			"keccak256": "0x0d19410453cda55960a818e02bd7c18952a5c8fe7a3036e81f0d599f34487a7b",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://4c0f62d3d5bef22b5ca00cc3903e7de6152cb68d2d22401a463f373cda54c00f",
-				"dweb:/ipfs/QmSfzjZux7LC7NW2f7rjCXTHeFMUCWERqDkhpCTBy7kxTe"
-			]
-		},
 		"@openzeppelin/contracts/token/ERC20/extensions/IERC20Metadata.sol": {
 			"keccak256": "0x8de418a5503946cabe331f35fe242d3201a73f67f77aaeb7110acb1f30423aca",
 			"license": "MIT",
@@ -620,20 +504,12 @@
 				"dweb:/ipfs/QmRK2Y5Yc6BK7tGKkgsgn3aJEQGi5aakeSPZvS65PV8Xp3"
 			]
 		},
-		"Blacklist/Blacklist.sol": {
-			"keccak256": "0x54e3c94c8379f719c05169822de5771e1ec7debf5b445b9ba2839930b3734558",
+		"scholarship/getSmart.sol": {
+			"keccak256": "0xfa44af3b940f1c5149af036461dd12bdaa8c4880dc5b3de7af94e029867cabe6",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://a0400816bdf7e9470e8e9b37056a7d8414b44389bcd8509d2c19a6557a2f1568",
-				"dweb:/ipfs/QmZ8kovsWwGcmAvUZ2wQUU5prCEJSHRRaAcTB8ttT1Vf86"
-			]
-		},
-		"Blacklist/Token.sol": {
-			"keccak256": "0x3966e4df96fe3d4115683f1e48b4ed75e089d8fbb531499b442025669b91c20a",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://2d437e83a161731977a61fef131e22ba6cb69c4d1a8d3458204923df2953dbb3",
-				"dweb:/ipfs/QmURugcAbW1YiAucbw7at9HQ8sCW4NK48WVJY1sUgTFbsh"
+				"bzz-raw://6cbe18e59178e035d0c63a92b94e98808267bf537433b9daf73533640033789b",
+				"dweb:/ipfs/QmZiw35PCiMhKcWY1Vzw2u1NeeKrWbzckfDnXEHmmhZnpn"
 			]
 		}
 	},

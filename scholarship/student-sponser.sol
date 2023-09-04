@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0
 pragma solidity >=0.7.0 <0.9.0;
-contract Manager{
+import "./getSmart.sol";
+
+contract Manager is Smart{
     mapping(address=>string) private UsersType;
     string type1;
     string type2;

@@ -9,26 +9,35 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "",
+						"name": "_depositFundsAddress",
 						"type": "address"
 					}
 				],
-				"name": "balances",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"stateMutability": "payable",
+				"type": "fallback"
+			},
+			{
+				"inputs": [],
+				"name": "attack",
+				"outputs": [],
+				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
 				"inputs": [],
-				"name": "deposit",
-				"outputs": [],
-				"stateMutability": "payable",
+				"name": "depositFunds",
+				"outputs": [
+					{
+						"internalType": "contract DepositFunds",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -42,13 +51,6 @@
 					}
 				],
 				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "withdraw",
-				"outputs": [],
-				"stateMutability": "nonpayable",
 				"type": "function"
 			}
 		],
@@ -65,7 +67,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"Reentrancy/deposit.sol": "DepositFunds"
+			"Reentrancy/Attack.sol": "Attack"
 		},
 		"evmVersion": "shanghai",
 		"libraries": {},
@@ -79,6 +81,14 @@
 		"remappings": []
 	},
 	"sources": {
+		"Reentrancy/Attack.sol": {
+			"keccak256": "0xcc0cbd49eac804889e68e39c44cab6cd52edd74bbfc86fd451e5e32c91ee02ae",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://81f99a4f60a7967ed8cda3aa4b527bd94fb99ce6f8eb97b4337e58aeb44d7cac",
+				"dweb:/ipfs/Qmcpcv85MfmzcJQ2T4HmMK2WD8edrCBqb3zGB2KgGahhBL"
+			]
+		},
 		"Reentrancy/deposit.sol": {
 			"keccak256": "0xc5860afcee89d4ca2929783a5eef9a9cb30635c05e1b1cf4ca67d493c0200958",
 			"license": "MIT",
