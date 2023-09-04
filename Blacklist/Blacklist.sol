@@ -18,5 +18,4 @@ contract blacklist{
     function isBlacklisted(address a) public view returns(bool){
         return userStatus[a]==status.blacklisted;
     }
-    
 }
