@@ -7,6 +7,8 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "./Blacklist.sol";
 
 contract MyToken is ERC20, ERC20Burnable, Ownable, blacklist {
+    event tokens_to_buy(uint a);
+
     uint256 public tokenPrice;
 
     constructor() ERC20("MyToken", "MTK") {
@@ -15,29 +17,23 @@ contract MyToken is ERC20, ERC20Burnable, Ownable, blacklist {
 
     function setTokenPrice(uint256 _newPrice) external onlyOwner {
         tokenPrice = _newPrice;
+    }
+    function Mint(uint256 _numTokens) external payable onlyOwner  {
+        _mint(msg.sender, _numTokens);
     }  
 
     function buyTokens(uint256 _numTokens) external payable {
         uint256 totalCost = _numTokens * tokenPrice;
         require(msg.value >= totalCost, "Insufficient ethers sent");
-        _mint(msg.sender, _numTokens);
-    }
-
-    function sellTokens(uint256 _numTokens) external {
-        require(balanceOf(msg.sender) >= _numTokens, "Insufficient tokens");
+        require(isBlacklisted(msg.sender)==true, "User Blacklisted");
+        emit tokens_to_buy(balanceOf(owner()));
         require(balanceOf(owner()) >= _numTokens, "Not enough tokens in owner's balance");
-
-        uint256 refundAmount = _numTokens * tokenPrice;
-        require(address(this).balance >= refundAmount, "Contract does not have enough ethers to refund");
-
-        _burn(msg.sender, _numTokens); // Burn tokens
-        payable(msg.sender).transfer(refundAmount);
+        transfer(msg.sender,_numTokens);
     }
 
     function burnUnsoldTokens() external onlyOwner {
-        uint256 unsoldTokens = balanceOf(address(this));
-        require(unsoldTokens > 0, "No unsold tokens");
-        _burn(address(this), unsoldTokens); // Burn unsold tokens
+        require(balanceOf(address(this)) > 0, "No unsold tokens");
+        _burn(address(this), balanceOf(address(this))); // Burn unsold tokens
     }
     function transferBalanceToOwner() external {
         require(msg.sender == owner(), "Only the owner can call this function");

@@ -80,6 +80,45 @@
 				"type": "event"
 			},
 			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "owner",
+						"type": "address"
+					}
+				],
+				"name": "black",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "a",
+						"type": "address"
+					}
+				],
+				"name": "AddBlacklisted",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "a",
+						"type": "address"
+					}
+				],
+				"name": "RemoveBlacklisted",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "address",
@@ -256,6 +295,25 @@
 					}
 				],
 				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "a",
+						"type": "address"
+					}
+				],
+				"name": "isBlacklisted",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -562,12 +620,20 @@
 				"dweb:/ipfs/QmRK2Y5Yc6BK7tGKkgsgn3aJEQGi5aakeSPZvS65PV8Xp3"
 			]
 		},
-		"Blacklist/Token.sol": {
-			"keccak256": "0x64c25e2c79451398f89a8add94b52a0065d9199a021dcd251b6b8d2efb12223b",
+		"Blacklist/Blacklist.sol": {
+			"keccak256": "0x131fe95f21a2ae053d9f2244819f59b0dbd5ade0ca73a86fd7d6878aae144b07",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://946a3e5024e00d739d89ba657654d429a655ba850bb81143b657ffc52bd0520f",
-				"dweb:/ipfs/QmV7Tp7mH4q1xmmBAh4iAsbyPyNd63UFiwyZToZ7FYQhDj"
+				"bzz-raw://bd9c84803d9e8a725b4af3335fbb62057e57431278b8b5fbc41dac40a4043588",
+				"dweb:/ipfs/QmYRkSRZXgasEkRCNSHh8cVbBGgWocbBu14c4DCuo79KP7"
+			]
+		},
+		"Blacklist/Token.sol": {
+			"keccak256": "0xc12b8cad6edb2f55e92188562848c898e112a54653277f830f07fb1e38e6c85e",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://1310b60b54a7708a9183a6a558f6c746dc96c84fe03a4ccd287a0893dec6cd45",
+				"dweb:/ipfs/QmcNxu95bn3y5CrinFPYvE4Q5d31433CttmnPEKS2Y1t7z"
 			]
 		}
 	},

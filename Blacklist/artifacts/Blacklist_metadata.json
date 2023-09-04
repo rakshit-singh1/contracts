@@ -6,19 +6,6 @@
 	"output": {
 		"abi": [
 			{
-				"anonymous": false,
-				"inputs": [
-					{
-						"indexed": false,
-						"internalType": "address",
-						"name": "owner",
-						"type": "address"
-					}
-				],
-				"name": "black",
-				"type": "event"
-			},
-			{
 				"inputs": [
 					{
 						"internalType": "address",
@@ -92,11 +79,11 @@
 	},
 	"sources": {
 		"Blacklist/Blacklist.sol": {
-			"keccak256": "0x131fe95f21a2ae053d9f2244819f59b0dbd5ade0ca73a86fd7d6878aae144b07",
+			"keccak256": "0x68e2cd693af6e304308a4af896f1dfd66c4ee8fd464445606e6fe77279bee573",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://bd9c84803d9e8a725b4af3335fbb62057e57431278b8b5fbc41dac40a4043588",
-				"dweb:/ipfs/QmYRkSRZXgasEkRCNSHh8cVbBGgWocbBu14c4DCuo79KP7"
+				"bzz-raw://8b0c708e366df1c0888b0394343ecd2fd785c7dd2ed1164791ab532c7a08d337",
+				"dweb:/ipfs/QmUMNHMiLYRWY9hDRXusTBwT21fyucUTXtTVrTiKUL96hK"
 			]
 		}
 	},
