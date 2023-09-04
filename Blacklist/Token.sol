@@ -24,7 +24,7 @@ contract MyToken is ERC20, ERC20Burnable, Ownable, blacklist {
     function buyTokens(uint256 _numTokens) external payable {
         uint256 totalCost = _numTokens * tokenPrice;
         require(msg.value >= totalCost, "Insufficient ethers sent");
-        require(isBlacklisted(msg.sender)!=true, "User Blacklisted");
+        require(!isBlacklisted(msg.sender), "User Blacklisted");
         emit tokens_to_buy(balanceOf(owner()));
         require(balanceOf(owner()) >= _numTokens, "Not enough tokens in owner's balance");
         _transfer(owner(),msg.sender,_numTokens);

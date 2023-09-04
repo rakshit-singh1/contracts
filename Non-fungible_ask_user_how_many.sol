@@ -11,11 +11,11 @@ contract MyToken is ERC721, ERC721URIStorage, Ownable {
     using Strings for uint256;
     Counters.Counter private _tokenIdCounter;
 
-    uint256 public tokenPrice = 0.1 ether;
+    uint256 public tokenPrice = 1 wei;
 
     constructor() ERC721("Rupees", "Rs") {}
     function _baseURI() internal pure override returns (string memory) {
-        return "https://gateway.pinata.cloud/ipfs/QmUgyQnR45VgF5DSXjU43th2EbRFYb4o2EFmYgnhfS883T/";
+        return "https://gateway.pinata.cloud/ipfs/QmXMuB43FQchTVigG2tJE5cFQrSwEy7XeixZJKxiLPTTkv/";
     }
     function safeMint(uint n) 
     public payable
@@ -27,7 +27,7 @@ contract MyToken is ERC721, ERC721URIStorage, Ownable {
             _safeMint(msg.sender, tokenId);
             string memory uri = string(abi.encodePacked(
             tokenId.toString(),
-            ".jpeg"));
+            ".json"));
             _setTokenURI(tokenId, uri);
         }
         
@@ -74,3 +74,4 @@ contract MyToken is ERC721, ERC721URIStorage, Ownable {
         return super.supportsInterface(interfaceId);
     }
 }
+//0x036C9b9A1AD878e96E0Fa765A5ba058F7f037e65

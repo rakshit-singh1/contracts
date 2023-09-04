@@ -30,9 +30,4 @@ contract Smart is ERC20, Ownable {
         _mint(msg.sender, limit);
         limit/=2;
     }
-
-    function transferBalanceToOwner() external {
-        require(msg.sender == owner(), "Only the owner can call this function");
-        payable(owner()).transfer(address(this).balance);
-    }
 }
