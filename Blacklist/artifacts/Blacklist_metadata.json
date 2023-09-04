@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.21+commit.d9974bed"
+		"version": "0.8.18+commit.87f61d96"
 	},
 	"language": "Solidity",
 	"output": {
@@ -128,7 +128,7 @@
 		"compilationTarget": {
 			"Blacklist/Blacklist.sol": "blacklist"
 		},
-		"evmVersion": "shanghai",
+		"evmVersion": "paris",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -157,11 +157,11 @@
 			]
 		},
 		"Blacklist/Blacklist.sol": {
-			"keccak256": "0x127ad2703afe2f2ac8b1aecff25e0778a06ff3d871ddbc2bb09ce62516eee868",
+			"keccak256": "0xc61fbd028e4b048b0ba74d019f8b6bf639f125aec52a7778d7a77acf6a34fcb2",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://f48837a544912190b1976c49c7cb064dfe7883e95916fdc2682ff9e8049fb3cb",
-				"dweb:/ipfs/QmRmxtBGV3R8KgUUhAjK26XBgWC36vj5udyvxh4HVJMiky"
+				"bzz-raw://38685a39c095f1cee403600d394bb35c0c2a9329feecafb5ecbb5f132b868ae0",
+				"dweb:/ipfs/QmYR3vjJ9hDvBJg9C7BsRhurYh3g6suNt8HrMx967U5PES"
 			]
 		}
 	},

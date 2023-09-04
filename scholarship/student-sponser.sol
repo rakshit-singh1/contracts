@@ -37,13 +37,7 @@ contract Manager is Smart{
     function buyTokens(uint256 _numTokens) external payable {
         uint256 totalCost = _numTokens * tokenPrice;
         require(msg.value >= totalCost, "Insufficient ethers sent");
-        _mint(msg.sender, _numTokens);
-    }
-
-    function buyTokens(uint256 _numTokens) external payable {
-        uint256 totalCost = _numTokens * tokenPrice;
-        require(msg.value >= totalCost, "Insufficient ethers sent");
-        require(UsersType[msg.sender]==typeSponser, "You are not allowed to buy");
+        require(keccak256(abi.encodePacked(UsersType[msg.sender]))==keccak256(abi.encodePacked(typeSponser)), "You are not allowed to buy");
         require(balanceOf(owner()) >= _numTokens, "Not enough tokens in owner's balance");
         _transfer(owner(),msg.sender,_numTokens);
     }

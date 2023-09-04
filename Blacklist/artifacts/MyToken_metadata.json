@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.21+commit.d9974bed"
+		"version": "0.8.18+commit.87f61d96"
 	},
 	"language": "Solidity",
 	"output": {
@@ -560,7 +560,7 @@
 		"compilationTarget": {
 			"Blacklist/Token.sol": "MyToken"
 		},
-		"evmVersion": "shanghai",
+		"evmVersion": "paris",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -621,19 +621,19 @@
 			]
 		},
 		"Blacklist/Blacklist.sol": {
-			"keccak256": "0x54e3c94c8379f719c05169822de5771e1ec7debf5b445b9ba2839930b3734558",
+			"keccak256": "0xc61fbd028e4b048b0ba74d019f8b6bf639f125aec52a7778d7a77acf6a34fcb2",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://a0400816bdf7e9470e8e9b37056a7d8414b44389bcd8509d2c19a6557a2f1568",
-				"dweb:/ipfs/QmZ8kovsWwGcmAvUZ2wQUU5prCEJSHRRaAcTB8ttT1Vf86"
+				"bzz-raw://38685a39c095f1cee403600d394bb35c0c2a9329feecafb5ecbb5f132b868ae0",
+				"dweb:/ipfs/QmYR3vjJ9hDvBJg9C7BsRhurYh3g6suNt8HrMx967U5PES"
 			]
 		},
 		"Blacklist/Token.sol": {
-			"keccak256": "0x3966e4df96fe3d4115683f1e48b4ed75e089d8fbb531499b442025669b91c20a",
+			"keccak256": "0x8bc0ac7b7ffe028b1417d847f8534dfdd2615f6a69c0a7fb85e9f96554c4326e",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://2d437e83a161731977a61fef131e22ba6cb69c4d1a8d3458204923df2953dbb3",
-				"dweb:/ipfs/QmURugcAbW1YiAucbw7at9HQ8sCW4NK48WVJY1sUgTFbsh"
+				"bzz-raw://757bd0434fb00a6a99b4d1ed4bb8d546cee5b0d222dd84214a732573e3c3f79f",
+				"dweb:/ipfs/QmPjaCXULxSTDgjMNy6QfrvqQkdBZwK2iNGrSQ21Z1t3RP"
 			]
 		}
 	},
