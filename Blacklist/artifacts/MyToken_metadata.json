@@ -500,7 +500,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"FungibleToken.sol": "MyToken"
+			"Blacklist/Token.sol": "MyToken"
 		},
 		"evmVersion": "paris",
 		"libraries": {},
@@ -562,12 +562,12 @@
 				"dweb:/ipfs/QmRK2Y5Yc6BK7tGKkgsgn3aJEQGi5aakeSPZvS65PV8Xp3"
 			]
 		},
-		"FungibleToken.sol": {
-			"keccak256": "0x0e88c8fb140f7ac05e7109adba3b91054505b398f8a490a3a10795217dad10e4",
+		"Blacklist/Token.sol": {
+			"keccak256": "0x64c25e2c79451398f89a8add94b52a0065d9199a021dcd251b6b8d2efb12223b",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://7f8c5977985360f3a0517f396096b2656901fadc793996e1e17899722d422cc9",
-				"dweb:/ipfs/QmYrUd7LsTfp6atnABQNyCQgy8HDvpYnVznQt1xEYfWbAb"
+				"bzz-raw://946a3e5024e00d739d89ba657654d429a655ba850bb81143b657ffc52bd0520f",
+				"dweb:/ipfs/QmV7Tp7mH4q1xmmBAh4iAsbyPyNd63UFiwyZToZ7FYQhDj"
 			]
 		}
 	},
