@@ -45,4 +45,4 @@ contract MyToken is ERC721A, Ownable {
         payable(owner()).transfer(address(this).balance);
     }
 }
-//0xbdaab73e189886ff357dd6f824106d5553b71461195c33a0aefe44675d1979cd   
+//0xbdaab73e189886ff357dd6f824106d5553b71461195c33a0aefe44675d1979
