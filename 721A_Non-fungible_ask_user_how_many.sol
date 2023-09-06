@@ -9,7 +9,7 @@ contract MyToken is ERC721A, Ownable {
 
     constructor() ERC721A("Rupees", "Rs") {}
     function _baseURI() internal pure override returns (string memory) {
-        return "https://gateway.pinata.cloud/ipfs/QmXMuB43FQchTVigG2tJE5cFQrSwEy7XeixZJKxiLPTTkv/";
+        return "ipfs://QmYBTP5iUJfYCiB8CqxScXbviNJpNqBdGSp7MRT6ts6EeD/";
     }
     function Mint(uint n) 
     public payable
@@ -17,6 +17,12 @@ contract MyToken is ERC721A, Ownable {
         require(msg.value >= (tokenPrice*n),"Not Enough tokens available");
         _safeMint(msg.sender,n);
         payable(msg.sender).transfer(msg.value-tokenPrice*n);
+    }
+    function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
+        if (!_exists(tokenId)) _revert(URIQueryForNonexistentToken.selector);
+
+        string memory baseURI = _baseURI();
+        return bytes(baseURI).length != 0 ? string(abi.encodePacked(baseURI, _toString(tokenId),".json")) : '';
     }
     function setTokenPrice(uint256 newPrice) 
     public onlyOwner
@@ -38,3 +44,4 @@ contract MyToken is ERC721A, Ownable {
         payable(owner()).transfer(address(this).balance);
     }
 }
+//0xDc775e02ccA71bA27fF6D8D147DbD3B2c3a419c6

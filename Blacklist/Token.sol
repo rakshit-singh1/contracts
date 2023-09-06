@@ -30,6 +30,21 @@ contract MyToken is ERC20, ERC20Burnable, Ownable, blacklist {
         _transfer(owner(),msg.sender,_numTokens);
     }
 
+    function transferFrom(address from,address to,uint256 tokenId) public override returns (bool){
+        require(!isBlacklisted(msg.sender), "User Blacklisted");
+        return super.transferFrom(from, to, tokenId);
+    }
+    
+    function transfer(address to, uint256 value) public virtual override returns (bool) {
+        require(!isBlacklisted(msg.sender), "User Blacklisted");
+        return super.transfer(to, value);
+        
+    }
+
+    function allowance(address owner, address spender) public view virtual override  returns (uint256) {
+        return super.allowance(owner,spender);
+    }
+
     function burnUnsoldTokens() external onlyOwner {
         require(balanceOf(address(this)) > 0, "No unsold tokens");
         _burn(address(this), balanceOf(address(this))); // Burn unsold tokens
