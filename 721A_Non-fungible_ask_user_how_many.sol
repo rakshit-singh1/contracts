@@ -9,7 +9,7 @@ contract MyToken is ERC721A, Ownable {
 
     constructor() ERC721A("Rupees", "Rs") {}
     function _baseURI() internal pure override returns (string memory) {
-        return "ipfs://QmYBTP5iUJfYCiB8CqxScXbviNJpNqBdGSp7MRT6ts6EeD/";
+        return "ipfs://Qmac89sZTSGvKkyYa2vrxdRakPREaGFJSNJRRWetzTLQTM/";
     }
     function Mint(uint n) 
     public payable
@@ -44,4 +44,4 @@ contract MyToken is ERC721A, Ownable {
         payable(owner()).transfer(address(this).balance);
     }
 }
-//0xDc775e02ccA71bA27fF6D8D147DbD3B2c3a419c6
+//0x0e81E640faf14c5BC50C39Ab815450d7e979206c

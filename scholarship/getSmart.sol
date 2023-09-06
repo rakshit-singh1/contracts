@@ -26,6 +26,7 @@ contract Smart is ERC20, Ownable {
         uint256 a=block.timestamp;
         require(a-LastMintTime>= 15 minutes,"Previous phase not over yet");
         require(limit>= 0,"Limit Exausted");
+        LastMintTime=a;
         phase++;
         _mint(msg.sender, limit);
         limit/=2;

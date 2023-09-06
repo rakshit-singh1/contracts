@@ -423,7 +423,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "amount",
+						"name": "value",
 						"type": "uint256"
 					}
 				],
@@ -459,7 +459,7 @@
 					},
 					{
 						"internalType": "uint256",
-						"name": "amount",
+						"name": "tokenId",
 						"type": "uint256"
 					}
 				],
@@ -537,12 +537,6 @@
 				},
 				"totalSupply()": {
 					"details": "See {IERC20-totalSupply}."
-				},
-				"transfer(address,uint256)": {
-					"details": "See {IERC20-transfer}. Requirements: - `to` cannot be the zero address. - the caller must have a balance of at least `amount`."
-				},
-				"transferFrom(address,address,uint256)": {
-					"details": "See {IERC20-transferFrom}. Emits an {Approval} event indicating the updated allowance. This is not required by the EIP. See the note at the beginning of {ERC20}. NOTE: Does not update the allowance if the current allowance is the maximum `uint256`. Requirements: - `from` and `to` cannot be the zero address. - `from` must have a balance of at least `amount`. - the caller must have allowance for ``from``'s tokens of at least `amount`."
 				},
 				"transferOwnership(address)": {
 					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
@@ -629,11 +623,11 @@
 			]
 		},
 		"Blacklist/Token.sol": {
-			"keccak256": "0x8bc0ac7b7ffe028b1417d847f8534dfdd2615f6a69c0a7fb85e9f96554c4326e",
+			"keccak256": "0x77dc6bfd8aa2a236b3124e12a37235158edb63c7d74a29f70795746a94bfb4f1",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://757bd0434fb00a6a99b4d1ed4bb8d546cee5b0d222dd84214a732573e3c3f79f",
-				"dweb:/ipfs/QmPjaCXULxSTDgjMNy6QfrvqQkdBZwK2iNGrSQ21Z1t3RP"
+				"bzz-raw://8eb876a83191f7b684544c6f2d65fa1a570f8de908c0d70a3772e139a7bd071e",
+				"dweb:/ipfs/QmaL7SvcgzoxJbpR1QHUsn9fB5wsw4dTyouv1P7NJQzeyE"
 			]
 		}
 	},

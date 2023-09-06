@@ -498,11 +498,11 @@
 			]
 		},
 		"scholarship/getSmart.sol": {
-			"keccak256": "0x785655860f5b9527719e973cc766acc5ffbe9db0ae89d3e984ad81942d259195",
+			"keccak256": "0x0065f17861ee1e61443094cf8ddb3027b9dc3f95e443b0819b3b2c167af2ba22",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://a16397fed2a70bc75509c0f4f8405b8f22265cbe5e90b432b8b3ceb69c60df68",
-				"dweb:/ipfs/QmVrPTyxJBS6Mr1uEdHC6e1mgHTomBaAQ4UXNNYecLqLYM"
+				"bzz-raw://9c30557359bf0610d22457b8733b64067f47a657e8a7554040241ef494fad5fb",
+				"dweb:/ipfs/QmbbHHST7ZzEEaEvsGHNsedksoVyazeU2tUJrG6bQ5vQCR"
 			]
 		}
 	},
