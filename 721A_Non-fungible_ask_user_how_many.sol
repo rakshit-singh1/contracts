@@ -22,7 +22,7 @@ contract MyToken is ERC721A, Ownable {
         if (!_exists(tokenId)) _revert(URIQueryForNonexistentToken.selector);
 
         string memory baseURI = _baseURI();
-        return bytes(baseURI).length != 0 ? string(abi.encodePacked(baseURI, _toString(tokenId),".json")) : '';
+        return bytes(baseURI).length != 0 ? string(abi.encodePacked(baseURI,_toString(tokenId),".json")) : '';
     }
     function setTokenPrice(uint256 newPrice) 
     public onlyOwner

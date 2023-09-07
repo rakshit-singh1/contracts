@@ -15,7 +15,7 @@ contract MyToken is ERC721, ERC721URIStorage, Ownable {
 
     constructor() ERC721("Rupees", "Rs") {}
     function _baseURI() internal pure override returns (string memory) {
-        return "https://gateway.pinata.cloud/ipfs/QmXMuB43FQchTVigG2tJE5cFQrSwEy7XeixZJKxiLPTTkv/";
+        return "ipfs://Qmac89sZTSGvKkyYa2vrxdRakPREaGFJSNJRRWetzTLQTM/";
     }
     function safeMint(uint n) 
     public payable

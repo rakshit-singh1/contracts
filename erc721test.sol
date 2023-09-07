@@ -6,23 +6,23 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 
-contract MyToken is ERC721, ERC721URIStorage, ERC721Burnable, Ownable {
+contract E721 is ERC721, ERC721URIStorage, ERC721Burnable, Ownable {
     using Counters for Counters.Counter;
-
+    using Strings for uint256;
     Counters.Counter private _tokenIdCounter;
 
-    constructor() ERC721("MyToken", "MTK") {}
-
+    constructor() ERC721("e721", "721") {}
     function _baseURI() internal pure override returns (string memory) {
-        return "https://gateway.pinata.cloud/ipfs/QmXMuB43FQchTVigG2tJE5cFQrSwEy7XeixZJKxiLPTTkv/";
+        return "ipfs://Qmac89sZTSGvKkyYa2vrxdRakPREaGFJSNJRRWetzTLQTM/";
     }
 
-    function safeMint(address to, string memory uri) public onlyOwner {
-        _tokenIdCounter.increment();
+    function safeMint(address to) public onlyOwner {
         uint256 tokenId = _tokenIdCounter.current();
+        _tokenIdCounter.increment();
         _safeMint(to, tokenId);
-         string memory uri = string(abi.encodePacked(tokenId.toString(),".json"));
+        string memory uri = string.concat(tokenId.toString(),".json");
         _setTokenURI(tokenId, uri);
     }
 
@@ -50,3 +50,4 @@ contract MyToken is ERC721, ERC721URIStorage, ERC721Burnable, Ownable {
         return super.supportsInterface(interfaceId);
     }
 }
+//0x7053abdb044fe65dd607d9454fd6ca6db960e5a6
