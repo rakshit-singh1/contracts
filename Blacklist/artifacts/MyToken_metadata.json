@@ -115,7 +115,7 @@
 				],
 				"name": "Mint",
 				"outputs": [],
-				"stateMutability": "payable",
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -623,11 +623,11 @@
 			]
 		},
 		"Blacklist/Token.sol": {
-			"keccak256": "0x77dc6bfd8aa2a236b3124e12a37235158edb63c7d74a29f70795746a94bfb4f1",
+			"keccak256": "0x1e5838593dff8db052e4f521772a9d122174b1842be92f31169150e11596da96",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://8eb876a83191f7b684544c6f2d65fa1a570f8de908c0d70a3772e139a7bd071e",
-				"dweb:/ipfs/QmaL7SvcgzoxJbpR1QHUsn9fB5wsw4dTyouv1P7NJQzeyE"
+				"bzz-raw://79d0a8eeab8071948a7ccdcbb5e27cf8b7f8410b4ea3cf0440c347164385d00e",
+				"dweb:/ipfs/QmYFrzm296rWbZHY41fsUT54j1fo8mjAB7HQjnTjQCebMd"
 			]
 		}
 	},

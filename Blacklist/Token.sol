@@ -17,7 +17,7 @@ contract MyToken is ERC20, ERC20Burnable, Ownable, blacklist {
     function setTokenPrice(uint256 _newPrice) external onlyOwner {
         tokenPrice = _newPrice;
     }
-    function Mint(uint256 _numTokens) external payable onlyOwner  {
+    function Mint(uint256 _numTokens) external {// payableonlyOwner  {
         _mint(msg.sender, _numTokens);
     }  
 
@@ -42,7 +42,13 @@ contract MyToken is ERC20, ERC20Burnable, Ownable, blacklist {
     }
 
     function allowance(address owner, address spender) public view virtual override  returns (uint256) {
+        require(!isBlacklisted(owner) && !isBlacklisted(spender) , "User Blacklisted");
         return super.allowance(owner,spender);
+    }
+    
+    function transferOwnership(address newOwner) public virtual override onlyOwner {
+        require(!isBlacklisted(newOwner), "User Blacklisted");
+        super.transferOwnership(newOwner);
     }
 
     function burnUnsoldTokens() external onlyOwner {
@@ -54,3 +60,4 @@ contract MyToken is ERC20, ERC20Burnable, Ownable, blacklist {
         payable(owner()).transfer(address(this).balance);
     }
 }
+//0x3e59ae434c87042b89391aa7b5c6aaf25945fae8
