@@ -1,0 +1,71 @@
+{
+	"id": "001a27aed0d235e6404e0c644f13545b",
+	"_format": "hh-sol-build-info-1",
+	"solcVersion": "0.8.21",
+	"solcLongVersion": "0.8.21+commit.d9974bed",
+	"input": {
+		"language": "Solidity",
+		"sources": {
+			"1155learn1.sol": {
+				"content": "\r\n\r\n// // SPDX-License-Identifier: MIT\r\n// pragma solidity ^0.8.9;\r\n\r\n// import \"@openzeppelin/contracts/token/ERC1155/ERC1155.sol\";\r\n// import \"@openzeppelin/contracts/access/Ownable.sol\";\r\n// import \"@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Burnable.sol\";\r\n// import \"@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol\";\r\n// import \"@openzeppelin/contracts/utils/Strings.sol\";\r\n\r\n// contract MyToken is ERC1155, Ownable, ERC1155Burnable, ERC1155Supply {\r\n//     using Strings for uint256;\r\n//     constructor() ERC1155(\"ipfs://Qmac89sZTSGvKkyYa2vrxdRakPREaGFJSNJRRWetzTLQTM/{id}.json\")    {}\r\n\r\n//     // Override the URI function to provide token-specific metadata.\r\n\r\n//     // function uri(uint256 _tokenid) public pure override returns (string memory) {\r\n//     //     return\r\n//     //     string(abi.encodePacked(\r\n//     //     \"ipfs://Qmac89sZTSGvKkyYa2vrxdRakPREaGFJSNJRRWetzTLQTM/\",\r\n//     //     Strings.toString(_tokenid),\r\n//     //     \".json\"));\r\n//     // }\r\n\r\n//     function mint(address account, uint256 id, uint256 amount, bytes memory data)\r\n//         public\r\n//         onlyOwner\r\n//     {\r\n//         _mint(account, id, amount, data);\r\n//     }\r\n\r\n//     function mintBatch(address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data)\r\n//         public\r\n//         onlyOwner\r\n//     {\r\n//         _mintBatch(to, ids, amounts, data);\r\n//     }\r\n\r\n//     // The following functions are overrides required by Solidity.\r\n\r\n//     function _beforeTokenTransfer(address operator, address from, address to, uint256[] memory ids, uint256[] memory amounts, bytes memory data)\r\n//         internal\r\n//         override(ERC1155, ERC1155Supply)\r\n//     {\r\n//         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);\r\n//     }\r\n// }"
+			}
+		},
+		"settings": {
+			"optimizer": {
+				"enabled": false,
+				"runs": 200
+			},
+			"outputSelection": {
+				"*": {
+					"": [
+						"ast"
+					],
+					"*": [
+						"abi",
+						"metadata",
+						"devdoc",
+						"userdoc",
+						"storageLayout",
+						"evm.legacyAssembly",
+						"evm.bytecode",
+						"evm.deployedBytecode",
+						"evm.methodIdentifiers",
+						"evm.gasEstimates",
+						"evm.assembly"
+					]
+				}
+			}
+		}
+	},
+	"output": {
+		"errors": [
+			{
+				"component": "general",
+				"errorCode": "3420",
+				"formattedMessage": "Warning: Source file does not specify required compiler version! Consider adding \"pragma solidity ^0.8.21;\"\n--> 1155learn1.sol\n\n",
+				"message": "Source file does not specify required compiler version! Consider adding \"pragma solidity ^0.8.21;\"",
+				"severity": "warning",
+				"sourceLocation": {
+					"end": -1,
+					"file": "1155learn1.sol",
+					"start": -1
+				},
+				"type": "Warning"
+			}
+		],
+		"sources": {
+			"1155learn1.sol": {
+				"ast": {
+					"absolutePath": "1155learn1.sol",
+					"exportedSymbols": {},
+					"id": 1,
+					"license": "MIT",
+					"nodeType": "SourceUnit",
+					"nodes": [],
+					"src": "1815:0:0"
+				},
+				"id": 0
+			}
+		}
+	}
+}

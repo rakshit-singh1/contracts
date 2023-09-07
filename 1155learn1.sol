@@ -5,14 +5,20 @@ import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Burnable.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract MyToken is ERC1155, Ownable, ERC1155Burnable, ERC1155Supply {
-    constructor()
-        ERC1155("ipfs://Qmac89sZTSGvKkyYa2vrxdRakPREaGFJSNJRRWetzTLQTM/")
-    {}
+    using Strings for uint256;
+    constructor() ERC1155("ipfs://Qmac89sZTSGvKkyYa2vrxdRakPREaGFJSNJRRWetzTLQTM/{id}.json"){}
 
-    function setURI(string memory newuri) public onlyOwner {
-        _setURI(newuri);
+    // Override the URI function to provide token-specific metadata.
+
+    function uri(uint256 _tokenid) public pure override returns (string memory) {
+        return
+        string(abi.encodePacked(
+        "ipfs://Qmac89sZTSGvKkyYa2vrxdRakPREaGFJSNJRRWetzTLQTM/",
+        Strings.toString(_tokenid),
+        ".json"));
     }
 
     function mint(address account, uint256 id, uint256 amount, bytes memory data)
@@ -38,3 +44,4 @@ contract MyToken is ERC1155, Ownable, ERC1155Burnable, ERC1155Supply {
         super._beforeTokenTransfer(operator, from, to, ids, amounts, data);
     }
 }
+//0x378d0c4f1b7d2a525f7482d8896c3104f1f8aba3
