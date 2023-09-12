@@ -447,6 +447,19 @@
 			{
 				"inputs": [
 					{
+						"internalType": "string",
+						"name": "newuri",
+						"type": "string"
+					}
+				],
+				"name": "setURI",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "bytes4",
 						"name": "interfaceId",
 						"type": "bytes4"
@@ -499,7 +512,7 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "_tokenid",
+						"name": "",
 						"type": "uint256"
 					}
 				],
@@ -511,7 +524,7 @@
 						"type": "string"
 					}
 				],
-				"stateMutability": "pure",
+				"stateMutability": "view",
 				"type": "function"
 			}
 		],
@@ -567,6 +580,9 @@
 				},
 				"transferOwnership(address)": {
 					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+				},
+				"uri(uint256)": {
+					"details": "See {IERC1155MetadataURI-uri}. This implementation returns the same URI for *all* token types. It relies on the token type ID substitution mechanism https://eips.ethereum.org/EIPS/eip-1155#metadata[defined in the EIP]. Clients calling this function must replace the `\\{id\\}` substring with the actual token type ID."
 				}
 			},
 			"version": 1
@@ -579,7 +595,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"1155learn1.sol": "MyToken"
+			"1155learn2.sol": "MyToken"
 		},
 		"evmVersion": "paris",
 		"libraries": {},
@@ -593,12 +609,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"1155learn1.sol": {
-			"keccak256": "0x09bd57ea0b23ff3cfe68aec4eab4e03b35e7624e0e379a387209d211c0a11a8c",
+		"1155learn2.sol": {
+			"keccak256": "0x17793afad04afab3c74ba45e69688ae08cc60fd09b8e582f4d12634d0ba747d5",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://0e8aac8502d5af2d83cd531a52b7ca2a1d321176002dcbbd373cc355760252b9",
-				"dweb:/ipfs/QmU4tYQiSM4qy9n5k9MF43ZKQomT4c34ezKs4HYxXWmkPX"
+				"bzz-raw://e4000ad47867ed80a8089cea47cf183fd2a62c40d6e0bb8f3f04128502608874",
+				"dweb:/ipfs/Qmc8ktSCoxz4gzy8KhEhhZVWoDg4GkhnMY4nDb8sAB3ZLF"
 			]
 		},
 		"@openzeppelin/contracts/access/Ownable.sol": {

@@ -2,12 +2,12 @@
 pragma solidity ^0.8.9;
 
 import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/access/Ownable.sol"; 
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Burnable.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol";
 import "@openzeppelin/contracts/utils/Strings.sol";
 
-contract MyToken is ERC1155, Ownable, ERC1155Burnable, ERC1155Supply {
+contract E11551 is ERC1155, Ownable, ERC1155Burnable, ERC1155Supply {
     using Strings for uint256;
     constructor() ERC1155("ipfs://Qmac89sZTSGvKkyYa2vrxdRakPREaGFJSNJRRWetzTLQTM/{id}.json"){}
 
