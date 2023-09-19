@@ -460,6 +460,19 @@
 			{
 				"inputs": [
 					{
+						"internalType": "string",
+						"name": "newuri",
+						"type": "string"
+					}
+				],
+				"name": "setURI",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "bytes4",
 						"name": "interfaceId",
 						"type": "bytes4"
@@ -512,7 +525,7 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "_tokenid",
+						"name": "id",
 						"type": "uint256"
 					}
 				],
@@ -524,7 +537,7 @@
 						"type": "string"
 					}
 				],
-				"stateMutability": "pure",
+				"stateMutability": "view",
 				"type": "function"
 			}
 		],
@@ -607,11 +620,11 @@
 	},
 	"sources": {
 		"1155learn4.sol": {
-			"keccak256": "0xd545266b5e92da185e0f781d817b3be4c62668a02fb49ac4b6124d451d6eef31",
+			"keccak256": "0x7aa517d0bc23d8b7b9812882730611b82df9d2457dfe72da5ffef1b9e9b12951",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://4ae289e001e40b6f2beb6b7eb63cf31b564dcb9c33a3784a10b4ada4b1e378cb",
-				"dweb:/ipfs/QmQLT79AvMFKkxzedM2vjSoY3eV5efNc6VnYpU5xoEz8ZQ"
+				"bzz-raw://a5dbb5c680be128096aa9b2f01c8905bba0174321844f4ef6363e1beab83381b",
+				"dweb:/ipfs/QmXsmPqjSsjQgfk17ir8MdcR8HcSwn77e89kfRqFcei6tZ"
 			]
 		},
 		"@openzeppelin/contracts/access/Ownable.sol": {

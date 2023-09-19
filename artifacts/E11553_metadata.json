@@ -148,45 +148,6 @@
 				"type": "event"
 			},
 			{
-				"inputs": [],
-				"name": "Acknowledgement",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "RunnerUp",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "Winner",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
 				"inputs": [
 					{
 						"internalType": "address",
@@ -291,6 +252,25 @@
 					}
 				],
 				"stateMutability": "pure",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					}
+				],
+				"name": "exists",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -512,6 +492,25 @@
 			{
 				"inputs": [
 					{
+						"internalType": "uint256",
+						"name": "id",
+						"type": "uint256"
+					}
+				],
+				"name": "totalSupply",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "address",
 						"name": "newOwner",
 						"type": "address"
@@ -526,7 +525,7 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "_tokenid",
+						"name": "id",
 						"type": "uint256"
 					}
 				],
@@ -538,7 +537,7 @@
 						"type": "string"
 					}
 				],
-				"stateMutability": "pure",
+				"stateMutability": "view",
 				"type": "function"
 			}
 		],
@@ -565,6 +564,9 @@
 				"balanceOfBatch(address[],uint256[])": {
 					"details": "See {IERC1155-balanceOfBatch}. Requirements: - `accounts` and `ids` must have the same length."
 				},
+				"exists(uint256)": {
+					"details": "Indicates whether any token exist with a given id, or not."
+				},
 				"isApprovedForAll(address,address)": {
 					"details": "See {IERC1155-isApprovedForAll}."
 				},
@@ -586,6 +588,9 @@
 				"supportsInterface(bytes4)": {
 					"details": "See {IERC165-supportsInterface}."
 				},
+				"totalSupply(uint256)": {
+					"details": "Total amount of tokens in with a given id."
+				},
 				"transferOwnership(address)": {
 					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
 				}
@@ -600,7 +605,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"1155learn3.sol": "E11553"
+			"1155learn4.sol": "E11553"
 		},
 		"evmVersion": "paris",
 		"libraries": {},
@@ -614,12 +619,12 @@
 		"remappings": []
 	},
 	"sources": {
-		"1155learn3.sol": {
-			"keccak256": "0x5ddd973647365187a9bf9dec4490bf27ca3e32b35175a16e5cd3374c9558b74e",
+		"1155learn4.sol": {
+			"keccak256": "0xa5d5120fbdcee19fadfbc48b67c5a5379d477de59fef2cae9c34af55cfcc1f7a",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://533b2c717c20b06616f4c4e2fcac14f9b1f6cce5c46a7966eb0bf0293c3c6e3b",
-				"dweb:/ipfs/QmcsiiMAU4B1hbCq5VRKbpEdi241ZXmkNhZAn8GKH9XwZf"
+				"bzz-raw://5f1773ad8a4965266ae6369316cb49fc5a7e1854ecb3815508e16255800a8628",
+				"dweb:/ipfs/QmPD3hfrJQnrVjm4eUY1FGHDzR912g77Qus3PXvoC6Fe3f"
 			]
 		},
 		"@openzeppelin/contracts/access/Ownable.sol": {
@@ -660,6 +665,14 @@
 			"urls": [
 				"bzz-raw://f07344858992165efa674db005a804953f74882b4bb3f9089813f8a0c6586734",
 				"dweb:/ipfs/QmZaAEqBENBkDQa4nuPeNiBWt4Yc1VpTynEadb3o6i8Mek"
+			]
+		},
+		"@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Supply.sol": {
+			"keccak256": "0xe3deb5f3b0c9d12944f62ab680f041bbf1910d9d3ac6b545b4b8e399643c538d",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://e1f5bc920c2f9859b02dce02d7d0211608398287c643d42ad048555c9b204dc8",
+				"dweb:/ipfs/QmSu2MFkCSPNG6pRsXxMai7Do7EDqLwpnnHVDB7q2wHJnr"
 			]
 		},
 		"@openzeppelin/contracts/token/ERC1155/extensions/IERC1155MetadataURI.sol": {
