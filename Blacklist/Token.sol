@@ -5,7 +5,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import "./Blacklist.sol";
 
-contract MyToken is ERC20, ERC20Burnable, Ownable, blacklist {
+contract MyToken is ERC20, ERC20Burnable, Ownable, blacklist{
     event tokens_to_buy(uint a);
 
     uint256 public tokenPrice;

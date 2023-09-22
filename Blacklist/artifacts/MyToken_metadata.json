@@ -623,11 +623,11 @@
 			]
 		},
 		"Blacklist/Token.sol": {
-			"keccak256": "0x1e5838593dff8db052e4f521772a9d122174b1842be92f31169150e11596da96",
+			"keccak256": "0xb7b1b83dbee707f1a5a0f1eb9053f047924ede9082088de53f230b55c165d7e4",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://79d0a8eeab8071948a7ccdcbb5e27cf8b7f8410b4ea3cf0440c347164385d00e",
-				"dweb:/ipfs/QmYFrzm296rWbZHY41fsUT54j1fo8mjAB7HQjnTjQCebMd"
+				"bzz-raw://5bb197861f13437735b3c7f121ccb8691759524419fc1a7ed7e2c93fd1e71d1d",
+				"dweb:/ipfs/QmZPBH6C27SMXFZnHMUuWjkkzQMTGBQDDZ5rfPBdrnp8AG"
 			]
 		}
 	},

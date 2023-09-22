@@ -67,6 +67,25 @@
 				],
 				"stateMutability": "view",
 				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "timestamp",
+						"type": "uint256"
+					}
+				],
+				"name": "timestampToDate",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "pure",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -97,11 +116,11 @@
 	},
 	"sources": {
 		"time.sol": {
-			"keccak256": "0x226ab4173100616b0654acbbb52c6bbc325b5ee06217414d2363046c4fe45c3c",
+			"keccak256": "0xee908bae099293d2e59694c3f0e3098f1d3b3cebeb5d724b26bd1110b8411398",
 			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://e8cfe3f76b434057c800ab8a9c860b9b1981453fe17c7e36abf5b4b7f231f825",
-				"dweb:/ipfs/QmYs2LxCaWWXGdBwEg4QUwwgbPR76xRZzcFuPC4enMPvbB"
+				"bzz-raw://4bbda07a331166297991fb90af64721fffa4ee4411e059637060050d12182488",
+				"dweb:/ipfs/QmdVVkZ9fDGi7DwgJS8APsaKsuUnNYrKfR1LcTpp6t7B4e"
 			]
 		}
 	},
