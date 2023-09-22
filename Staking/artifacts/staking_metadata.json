@@ -78,8 +78,32 @@
 			{
 				"inputs": [
 					{
+						"internalType": "uint256",
+						"name": "_numTokens",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "tarrif",
+						"type": "uint256"
+					}
+				],
+				"name": "Stake",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "address",
-						"name": "ad",
+						"name": "user",
 						"type": "address"
 					}
 				],
@@ -92,7 +116,7 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "ad",
+						"name": "user",
 						"type": "address"
 					}
 				],
@@ -160,6 +184,25 @@
 				"type": "function"
 			},
 			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "user",
+						"type": "address"
+					}
+				],
+				"name": "isRewardAvailable",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [],
 				"name": "owner",
 				"outputs": [
@@ -189,30 +232,6 @@
 					}
 				],
 				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_numTokens",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "time",
-						"type": "uint256"
-					}
-				],
-				"name": "stake",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -345,11 +364,11 @@
 			]
 		},
 		"Staking/staking.sol": {
-			"keccak256": "0xf78d3eb9f167ee93b3e4fc794801390ca890fcf25238c538baa5135e7c46a6c8",
+			"keccak256": "0xafed629bc86c16b0d94b32aa33967745abb4bc1278954013f41d1f5ad4dc2738",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://6e6046ea7b71ca457bf9b88ec7a191e7f02379e236e318407b7e9dd06912c181",
-				"dweb:/ipfs/Qmd4xTdnakCyMSNfz9hELhTR93eskuAJBoeLvusAKuQoSm"
+				"bzz-raw://5cfe62918ae25be82a3d3f617cf329aa278e7b77ca4dc06932d37df88f7d1b45",
+				"dweb:/ipfs/QmTSQ8a3ru7TdKTptgM6evTb7Dg9jZRkuw5RkZkFrJzXRp"
 			]
 		}
 	},
