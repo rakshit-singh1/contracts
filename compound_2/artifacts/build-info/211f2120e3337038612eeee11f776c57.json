@@ -1,0 +1,3943 @@
+{
+	"id": "211f2120e3337038612eeee11f776c57",
+	"_format": "hh-sol-build-info-1",
+	"solcVersion": "0.8.21",
+	"solcLongVersion": "0.8.21+commit.d9974bed",
+	"input": {
+		"language": "Solidity",
+		"sources": {
+			"compound_2/ErrorReporter.sol": {
+				"content": "// SPDX-License-Identifier: BSD-3-Clause\npragma solidity ^0.8.10;\n\ncontract ComptrollerErrorReporter {\n    enum Error {\n        NO_ERROR,\n        UNAUTHORIZED,\n        COMPTROLLER_MISMATCH,\n        INSUFFICIENT_SHORTFALL,\n        INSUFFICIENT_LIQUIDITY,\n        INVALID_CLOSE_FACTOR,\n        INVALID_COLLATERAL_FACTOR,\n        INVALID_LIQUIDATION_INCENTIVE,\n        MARKET_NOT_ENTERED, // no longer possible\n        MARKET_NOT_LISTED,\n        MARKET_ALREADY_LISTED,\n        MATH_ERROR,\n        NONZERO_BORROW_BALANCE,\n        PRICE_ERROR,\n        REJECTION,\n        SNAPSHOT_ERROR,\n        TOO_MANY_ASSETS,\n        TOO_MUCH_REPAY\n    }\n\n    enum FailureInfo {\n        ACCEPT_ADMIN_PENDING_ADMIN_CHECK,\n        ACCEPT_PENDING_IMPLEMENTATION_ADDRESS_CHECK,\n        EXIT_MARKET_BALANCE_OWED,\n        EXIT_MARKET_REJECTION,\n        SET_CLOSE_FACTOR_OWNER_CHECK,\n        SET_CLOSE_FACTOR_VALIDATION,\n        SET_COLLATERAL_FACTOR_OWNER_CHECK,\n        SET_COLLATERAL_FACTOR_NO_EXISTS,\n        SET_COLLATERAL_FACTOR_VALIDATION,\n        SET_COLLATERAL_FACTOR_WITHOUT_PRICE,\n        SET_IMPLEMENTATION_OWNER_CHECK,\n        SET_LIQUIDATION_INCENTIVE_OWNER_CHECK,\n        SET_LIQUIDATION_INCENTIVE_VALIDATION,\n        SET_MAX_ASSETS_OWNER_CHECK,\n        SET_PENDING_ADMIN_OWNER_CHECK,\n        SET_PENDING_IMPLEMENTATION_OWNER_CHECK,\n        SET_PRICE_ORACLE_OWNER_CHECK,\n        SUPPORT_MARKET_EXISTS,\n        SUPPORT_MARKET_OWNER_CHECK,\n        SET_PAUSE_GUARDIAN_OWNER_CHECK\n    }\n\n    /**\n      * @dev `error` corresponds to enum Error; `info` corresponds to enum FailureInfo, and `detail` is an arbitrary\n      * contract-specific code that enables us to report opaque error codes from upgradeable contracts.\n      **/\n    event Failure(uint error, uint info, uint detail);\n\n    /**\n      * @dev use this when reporting a known error from the money market or a non-upgradeable collaborator\n      */\n    function fail(Error err, FailureInfo info) internal returns (uint) {\n        emit Failure(uint(err), uint(info), 0);\n\n        return uint(err);\n    }\n\n    /**\n      * @dev use this when reporting an opaque error from an upgradeable collaborator contract\n      */\n    function failOpaque(Error err, FailureInfo info, uint opaqueError) internal returns (uint) {\n        emit Failure(uint(err), uint(info), opaqueError);\n\n        return uint(err);\n    }\n}\n\ncontract TokenErrorReporter {\n    uint public constant NO_ERROR = 0; // support legacy return codes\n\n    error TransferComptrollerRejection(uint256 errorCode);\n    error TransferNotAllowed();\n    error TransferNotEnough();\n    error TransferTooMuch();\n\n    error MintComptrollerRejection(uint256 errorCode);\n    error MintFreshnessCheck();\n\n    error RedeemComptrollerRejection(uint256 errorCode);\n    error RedeemFreshnessCheck();\n    error RedeemTransferOutNotPossible();\n\n    error BorrowComptrollerRejection(uint256 errorCode);\n    error BorrowFreshnessCheck();\n    error BorrowCashNotAvailable();\n\n    error RepayBorrowComptrollerRejection(uint256 errorCode);\n    error RepayBorrowFreshnessCheck();\n\n    error LiquidateComptrollerRejection(uint256 errorCode);\n    error LiquidateFreshnessCheck();\n    error LiquidateCollateralFreshnessCheck();\n    error LiquidateAccrueBorrowInterestFailed(uint256 errorCode);\n    error LiquidateAccrueCollateralInterestFailed(uint256 errorCode);\n    error LiquidateLiquidatorIsBorrower();\n    error LiquidateCloseAmountIsZero();\n    error LiquidateCloseAmountIsUintMax();\n    error LiquidateRepayBorrowFreshFailed(uint256 errorCode);\n\n    error LiquidateSeizeComptrollerRejection(uint256 errorCode);\n    error LiquidateSeizeLiquidatorIsBorrower();\n\n    error AcceptAdminPendingAdminCheck();\n\n    error SetComptrollerOwnerCheck();\n    error SetPendingAdminOwnerCheck();\n\n    error SetReserveFactorAdminCheck();\n    error SetReserveFactorFreshCheck();\n    error SetReserveFactorBoundsCheck();\n\n    error AddReservesFactorFreshCheck(uint256 actualAddAmount);\n\n    error ReduceReservesAdminCheck();\n    error ReduceReservesFreshCheck();\n    error ReduceReservesCashNotAvailable();\n    error ReduceReservesCashValidation();\n\n    error SetInterestRateModelOwnerCheck();\n    error SetInterestRateModelFreshCheck();\n}\n"
+			}
+		},
+		"settings": {
+			"optimizer": {
+				"enabled": false,
+				"runs": 200
+			},
+			"outputSelection": {
+				"*": {
+					"": [
+						"ast"
+					],
+					"*": [
+						"abi",
+						"metadata",
+						"devdoc",
+						"userdoc",
+						"storageLayout",
+						"evm.legacyAssembly",
+						"evm.bytecode",
+						"evm.deployedBytecode",
+						"evm.methodIdentifiers",
+						"evm.gasEstimates",
+						"evm.assembly"
+					]
+				}
+			}
+		}
+	},
+	"output": {
+		"contracts": {
+			"compound_2/ErrorReporter.sol": {
+				"ComptrollerErrorReporter": {
+					"abi": [
+						{
+							"anonymous": false,
+							"inputs": [
+								{
+									"indexed": false,
+									"internalType": "uint256",
+									"name": "error",
+									"type": "uint256"
+								},
+								{
+									"indexed": false,
+									"internalType": "uint256",
+									"name": "info",
+									"type": "uint256"
+								},
+								{
+									"indexed": false,
+									"internalType": "uint256",
+									"name": "detail",
+									"type": "uint256"
+								}
+							],
+							"name": "Failure",
+							"type": "event"
+						}
+					],
+					"devdoc": {
+						"events": {
+							"Failure(uint256,uint256,uint256)": {
+								"details": "`error` corresponds to enum Error; `info` corresponds to enum FailureInfo, and `detail` is an arbitrary contract-specific code that enables us to report opaque error codes from upgradeable contracts.*"
+							}
+						},
+						"kind": "dev",
+						"methods": {},
+						"version": 1
+					},
+					"evm": {
+						"assembly": "    /* \"compound_2/ErrorReporter.sol\":67:2348  contract ComptrollerErrorReporter {... */\n  mstore(0x40, 0x80)\n  callvalue\n  dup1\n  iszero\n  tag_1\n  jumpi\n  0x00\n  dup1\n  revert\ntag_1:\n  pop\n  dataSize(sub_0)\n  dup1\n  dataOffset(sub_0)\n  0x00\n  codecopy\n  0x00\n  return\nstop\n\nsub_0: assembly {\n        /* \"compound_2/ErrorReporter.sol\":67:2348  contract ComptrollerErrorReporter {... */\n      mstore(0x40, 0x80)\n      0x00\n      dup1\n      revert\n\n    auxdata: 0xa2646970667358221220e2ec2fb555c6de0a9024dfd61aa4ab12c66b7072d85028c06261342be43cb4a064736f6c63430008150033\n}\n",
+						"bytecode": {
+							"functionDebugData": {},
+							"generatedSources": [],
+							"linkReferences": {},
+							"object": "6080604052348015600e575f80fd5b50603e80601a5f395ff3fe60806040525f80fdfea2646970667358221220e2ec2fb555c6de0a9024dfd61aa4ab12c66b7072d85028c06261342be43cb4a064736f6c63430008150033",
+							"opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH1 0xE JUMPI PUSH0 DUP1 REVERT JUMPDEST POP PUSH1 0x3E DUP1 PUSH1 0x1A PUSH0 CODECOPY PUSH0 RETURN INVALID PUSH1 0x80 PUSH1 0x40 MSTORE PUSH0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 0xE2 0xEC 0x2F 0xB5 SSTORE 0xC6 0xDE EXP SWAP1 0x24 0xDF 0xD6 BYTE LOG4 0xAB SLT 0xC6 PUSH12 0x7072D85028C06261342BE43C 0xB4 LOG0 PUSH5 0x736F6C6343 STOP ADDMOD ISZERO STOP CALLER ",
+							"sourceMap": "67:2281:0:-:0;;;;;;;;;;;;;;;;;;;"
+						},
+						"deployedBytecode": {
+							"functionDebugData": {},
+							"generatedSources": [],
+							"immutableReferences": {},
+							"linkReferences": {},
+							"object": "60806040525f80fdfea2646970667358221220e2ec2fb555c6de0a9024dfd61aa4ab12c66b7072d85028c06261342be43cb4a064736f6c63430008150033",
+							"opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE PUSH0 DUP1 REVERT INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 0xE2 0xEC 0x2F 0xB5 SSTORE 0xC6 0xDE EXP SWAP1 0x24 0xDF 0xD6 BYTE LOG4 0xAB SLT 0xC6 PUSH12 0x7072D85028C06261342BE43C 0xB4 LOG0 PUSH5 0x736F6C6343 STOP ADDMOD ISZERO STOP CALLER ",
+							"sourceMap": "67:2281:0:-:0;;;;;"
+						},
+						"gasEstimates": {
+							"creation": {
+								"codeDepositCost": "12400",
+								"executionCost": "64",
+								"totalCost": "12464"
+							},
+							"internal": {
+								"fail(enum ComptrollerErrorReporter.Error,enum ComptrollerErrorReporter.FailureInfo)": "infinite",
+								"failOpaque(enum ComptrollerErrorReporter.Error,enum ComptrollerErrorReporter.FailureInfo,uint256)": "infinite"
+							}
+						},
+						"legacyAssembly": {
+							".code": [
+								{
+									"begin": 67,
+									"end": 2348,
+									"name": "PUSH",
+									"source": 0,
+									"value": "80"
+								},
+								{
+									"begin": 67,
+									"end": 2348,
+									"name": "PUSH",
+									"source": 0,
+									"value": "40"
+								},
+								{
+									"begin": 67,
+									"end": 2348,
+									"name": "MSTORE",
+									"source": 0
+								},
+								{
+									"begin": 67,
+									"end": 2348,
+									"name": "CALLVALUE",
+									"source": 0
+								},
+								{
+									"begin": 67,
+									"end": 2348,
+									"name": "DUP1",
+									"source": 0
+								},
+								{
+									"begin": 67,
+									"end": 2348,
+									"name": "ISZERO",
+									"source": 0
+								},
+								{
+									"begin": 67,
+									"end": 2348,
+									"name": "PUSH [tag]",
+									"source": 0,
+									"value": "1"
+								},
+								{
+									"begin": 67,
+									"end": 2348,
+									"name": "JUMPI",
+									"source": 0
+								},
+								{
+									"begin": 67,
+									"end": 2348,
+									"name": "PUSH",
+									"source": 0,
+									"value": "0"
+								},
+								{
+									"begin": 67,
+									"end": 2348,
+									"name": "DUP1",
+									"source": 0
+								},
+								{
+									"begin": 67,
+									"end": 2348,
+									"name": "REVERT",
+									"source": 0
+								},
+								{
+									"begin": 67,
+									"end": 2348,
+									"name": "tag",
+									"source": 0,
+									"value": "1"
+								},
+								{
+									"begin": 67,
+									"end": 2348,
+									"name": "JUMPDEST",
+									"source": 0
+								},
+								{
+									"begin": 67,
+									"end": 2348,
+									"name": "POP",
+									"source": 0
+								},
+								{
+									"begin": 67,
+									"end": 2348,
+									"name": "PUSH #[$]",
+									"source": 0,
+									"value": "0000000000000000000000000000000000000000000000000000000000000000"
+								},
+								{
+									"begin": 67,
+									"end": 2348,
+									"name": "DUP1",
+									"source": 0
+								},
+								{
+									"begin": 67,
+									"end": 2348,
+									"name": "PUSH [$]",
+									"source": 0,
+									"value": "0000000000000000000000000000000000000000000000000000000000000000"
+								},
+								{
+									"begin": 67,
+									"end": 2348,
+									"name": "PUSH",
+									"source": 0,
+									"value": "0"
+								},
+								{
+									"begin": 67,
+									"end": 2348,
+									"name": "CODECOPY",
+									"source": 0
+								},
+								{
+									"begin": 67,
+									"end": 2348,
+									"name": "PUSH",
+									"source": 0,
+									"value": "0"
+								},
+								{
+									"begin": 67,
+									"end": 2348,
+									"name": "RETURN",
+									"source": 0
+								}
+							],
+							".data": {
+								"0": {
+									".auxdata": "a2646970667358221220e2ec2fb555c6de0a9024dfd61aa4ab12c66b7072d85028c06261342be43cb4a064736f6c63430008150033",
+									".code": [
+										{
+											"begin": 67,
+											"end": 2348,
+											"name": "PUSH",
+											"source": 0,
+											"value": "80"
+										},
+										{
+											"begin": 67,
+											"end": 2348,
+											"name": "PUSH",
+											"source": 0,
+											"value": "40"
+										},
+										{
+											"begin": 67,
+											"end": 2348,
+											"name": "MSTORE",
+											"source": 0
+										},
+										{
+											"begin": 67,
+											"end": 2348,
+											"name": "PUSH",
+											"source": 0,
+											"value": "0"
+										},
+										{
+											"begin": 67,
+											"end": 2348,
+											"name": "DUP1",
+											"source": 0
+										},
+										{
+											"begin": 67,
+											"end": 2348,
+											"name": "REVERT",
+											"source": 0
+										}
+									]
+								}
+							},
+							"sourceList": [
+								"compound_2/ErrorReporter.sol",
+								"#utility.yul"
+							]
+						},
+						"methodIdentifiers": {}
+					},
+					"metadata": "{\"compiler\":{\"version\":\"0.8.21+commit.d9974bed\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"error\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"info\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"detail\",\"type\":\"uint256\"}],\"name\":\"Failure\",\"type\":\"event\"}],\"devdoc\":{\"events\":{\"Failure(uint256,uint256,uint256)\":{\"details\":\"`error` corresponds to enum Error; `info` corresponds to enum FailureInfo, and `detail` is an arbitrary contract-specific code that enables us to report opaque error codes from upgradeable contracts.*\"}},\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"compound_2/ErrorReporter.sol\":\"ComptrollerErrorReporter\"},\"evmVersion\":\"shanghai\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"compound_2/ErrorReporter.sol\":{\"keccak256\":\"0xc565694807fce4d9eb218b77d2e7eb7665e0d6950cbfa9edd1e3c09e417b809c\",\"license\":\"BSD-3-Clause\",\"urls\":[\"bzz-raw://610e579eb6fbd8da9ba8f2d04f17b2213e858466177c488e2f3e4a37a314b864\",\"dweb:/ipfs/QmZmEvsi6qkvaPg6j2u3D3QZJbRtm2CPz8jf83HRkKrxuu\"]}},\"version\":1}",
+					"storageLayout": {
+						"storage": [],
+						"types": null
+					},
+					"userdoc": {
+						"kind": "user",
+						"methods": {},
+						"version": 1
+					}
+				},
+				"TokenErrorReporter": {
+					"abi": [
+						{
+							"inputs": [],
+							"name": "AcceptAdminPendingAdminCheck",
+							"type": "error"
+						},
+						{
+							"inputs": [
+								{
+									"internalType": "uint256",
+									"name": "actualAddAmount",
+									"type": "uint256"
+								}
+							],
+							"name": "AddReservesFactorFreshCheck",
+							"type": "error"
+						},
+						{
+							"inputs": [],
+							"name": "BorrowCashNotAvailable",
+							"type": "error"
+						},
+						{
+							"inputs": [
+								{
+									"internalType": "uint256",
+									"name": "errorCode",
+									"type": "uint256"
+								}
+							],
+							"name": "BorrowComptrollerRejection",
+							"type": "error"
+						},
+						{
+							"inputs": [],
+							"name": "BorrowFreshnessCheck",
+							"type": "error"
+						},
+						{
+							"inputs": [
+								{
+									"internalType": "uint256",
+									"name": "errorCode",
+									"type": "uint256"
+								}
+							],
+							"name": "LiquidateAccrueBorrowInterestFailed",
+							"type": "error"
+						},
+						{
+							"inputs": [
+								{
+									"internalType": "uint256",
+									"name": "errorCode",
+									"type": "uint256"
+								}
+							],
+							"name": "LiquidateAccrueCollateralInterestFailed",
+							"type": "error"
+						},
+						{
+							"inputs": [],
+							"name": "LiquidateCloseAmountIsUintMax",
+							"type": "error"
+						},
+						{
+							"inputs": [],
+							"name": "LiquidateCloseAmountIsZero",
+							"type": "error"
+						},
+						{
+							"inputs": [],
+							"name": "LiquidateCollateralFreshnessCheck",
+							"type": "error"
+						},
+						{
+							"inputs": [
+								{
+									"internalType": "uint256",
+									"name": "errorCode",
+									"type": "uint256"
+								}
+							],
+							"name": "LiquidateComptrollerRejection",
+							"type": "error"
+						},
+						{
+							"inputs": [],
+							"name": "LiquidateFreshnessCheck",
+							"type": "error"
+						},
+						{
+							"inputs": [],
+							"name": "LiquidateLiquidatorIsBorrower",
+							"type": "error"
+						},
+						{
+							"inputs": [
+								{
+									"internalType": "uint256",
+									"name": "errorCode",
+									"type": "uint256"
+								}
+							],
+							"name": "LiquidateRepayBorrowFreshFailed",
+							"type": "error"
+						},
+						{
+							"inputs": [
+								{
+									"internalType": "uint256",
+									"name": "errorCode",
+									"type": "uint256"
+								}
+							],
+							"name": "LiquidateSeizeComptrollerRejection",
+							"type": "error"
+						},
+						{
+							"inputs": [],
+							"name": "LiquidateSeizeLiquidatorIsBorrower",
+							"type": "error"
+						},
+						{
+							"inputs": [
+								{
+									"internalType": "uint256",
+									"name": "errorCode",
+									"type": "uint256"
+								}
+							],
+							"name": "MintComptrollerRejection",
+							"type": "error"
+						},
+						{
+							"inputs": [],
+							"name": "MintFreshnessCheck",
+							"type": "error"
+						},
+						{
+							"inputs": [
+								{
+									"internalType": "uint256",
+									"name": "errorCode",
+									"type": "uint256"
+								}
+							],
+							"name": "RedeemComptrollerRejection",
+							"type": "error"
+						},
+						{
+							"inputs": [],
+							"name": "RedeemFreshnessCheck",
+							"type": "error"
+						},
+						{
+							"inputs": [],
+							"name": "RedeemTransferOutNotPossible",
+							"type": "error"
+						},
+						{
+							"inputs": [],
+							"name": "ReduceReservesAdminCheck",
+							"type": "error"
+						},
+						{
+							"inputs": [],
+							"name": "ReduceReservesCashNotAvailable",
+							"type": "error"
+						},
+						{
+							"inputs": [],
+							"name": "ReduceReservesCashValidation",
+							"type": "error"
+						},
+						{
+							"inputs": [],
+							"name": "ReduceReservesFreshCheck",
+							"type": "error"
+						},
+						{
+							"inputs": [
+								{
+									"internalType": "uint256",
+									"name": "errorCode",
+									"type": "uint256"
+								}
+							],
+							"name": "RepayBorrowComptrollerRejection",
+							"type": "error"
+						},
+						{
+							"inputs": [],
+							"name": "RepayBorrowFreshnessCheck",
+							"type": "error"
+						},
+						{
+							"inputs": [],
+							"name": "SetComptrollerOwnerCheck",
+							"type": "error"
+						},
+						{
+							"inputs": [],
+							"name": "SetInterestRateModelFreshCheck",
+							"type": "error"
+						},
+						{
+							"inputs": [],
+							"name": "SetInterestRateModelOwnerCheck",
+							"type": "error"
+						},
+						{
+							"inputs": [],
+							"name": "SetPendingAdminOwnerCheck",
+							"type": "error"
+						},
+						{
+							"inputs": [],
+							"name": "SetReserveFactorAdminCheck",
+							"type": "error"
+						},
+						{
+							"inputs": [],
+							"name": "SetReserveFactorBoundsCheck",
+							"type": "error"
+						},
+						{
+							"inputs": [],
+							"name": "SetReserveFactorFreshCheck",
+							"type": "error"
+						},
+						{
+							"inputs": [
+								{
+									"internalType": "uint256",
+									"name": "errorCode",
+									"type": "uint256"
+								}
+							],
+							"name": "TransferComptrollerRejection",
+							"type": "error"
+						},
+						{
+							"inputs": [],
+							"name": "TransferNotAllowed",
+							"type": "error"
+						},
+						{
+							"inputs": [],
+							"name": "TransferNotEnough",
+							"type": "error"
+						},
+						{
+							"inputs": [],
+							"name": "TransferTooMuch",
+							"type": "error"
+						},
+						{
+							"inputs": [],
+							"name": "NO_ERROR",
+							"outputs": [
+								{
+									"internalType": "uint256",
+									"name": "",
+									"type": "uint256"
+								}
+							],
+							"stateMutability": "view",
+							"type": "function"
+						}
+					],
+					"devdoc": {
+						"kind": "dev",
+						"methods": {},
+						"version": 1
+					},
+					"evm": {
+						"assembly": "    /* \"compound_2/ErrorReporter.sol\":2350:4198  contract TokenErrorReporter {... */\n  mstore(0x40, 0x80)\n  callvalue\n  dup1\n  iszero\n  tag_1\n  jumpi\n  0x00\n  dup1\n  revert\ntag_1:\n  pop\n  dataSize(sub_0)\n  dup1\n  dataOffset(sub_0)\n  0x00\n  codecopy\n  0x00\n  return\nstop\n\nsub_0: assembly {\n        /* \"compound_2/ErrorReporter.sol\":2350:4198  contract TokenErrorReporter {... */\n      mstore(0x40, 0x80)\n      callvalue\n      dup1\n      iszero\n      tag_1\n      jumpi\n      0x00\n      dup1\n      revert\n    tag_1:\n      pop\n      jumpi(tag_2, lt(calldatasize, 0x04))\n      shr(0xe0, calldataload(0x00))\n      dup1\n      0x69ab3250\n      eq\n      tag_3\n      jumpi\n    tag_2:\n      0x00\n      dup1\n      revert\n        /* \"compound_2/ErrorReporter.sol\":2384:2417  uint public constant NO_ERROR = 0 */\n    tag_3:\n      tag_4\n      tag_5\n      jump\t// in\n    tag_4:\n      mload(0x40)\n      tag_6\n      swap2\n      swap1\n      tag_7\n      jump\t// in\n    tag_6:\n      mload(0x40)\n      dup1\n      swap2\n      sub\n      swap1\n      return\n    tag_5:\n        /* \"compound_2/ErrorReporter.sol\":2416:2417  0 */\n      0x00\n        /* \"compound_2/ErrorReporter.sol\":2384:2417  uint public constant NO_ERROR = 0 */\n      dup2\n      jump\t// out\n        /* \"#utility.yul\":7:84   */\n    tag_8:\n        /* \"#utility.yul\":44:51   */\n      0x00\n        /* \"#utility.yul\":73:78   */\n      dup2\n        /* \"#utility.yul\":62:78   */\n      swap1\n      pop\n        /* \"#utility.yul\":7:84   */\n      swap2\n      swap1\n      pop\n      jump\t// out\n        /* \"#utility.yul\":90:208   */\n    tag_9:\n        /* \"#utility.yul\":177:201   */\n      tag_13\n        /* \"#utility.yul\":195:200   */\n      dup2\n        /* \"#utility.yul\":177:201   */\n      tag_8\n      jump\t// in\n    tag_13:\n        /* \"#utility.yul\":172:175   */\n      dup3\n        /* \"#utility.yul\":165:202   */\n      mstore\n        /* \"#utility.yul\":90:208   */\n      pop\n      pop\n      jump\t// out\n        /* \"#utility.yul\":214:436   */\n    tag_7:\n        /* \"#utility.yul\":307:311   */\n      0x00\n        /* \"#utility.yul\":345:347   */\n      0x20\n        /* \"#utility.yul\":334:343   */\n      dup3\n        /* \"#utility.yul\":330:348   */\n      add\n        /* \"#utility.yul\":322:348   */\n      swap1\n      pop\n        /* \"#utility.yul\":358:429   */\n      tag_15\n        /* \"#utility.yul\":426:427   */\n      0x00\n        /* \"#utility.yul\":415:424   */\n      dup4\n        /* \"#utility.yul\":411:428   */\n      add\n        /* \"#utility.yul\":402:408   */\n      dup5\n        /* \"#utility.yul\":358:429   */\n      tag_9\n      jump\t// in\n    tag_15:\n        /* \"#utility.yul\":214:436   */\n      swap3\n      swap2\n      pop\n      pop\n      jump\t// out\n\n    auxdata: 0xa2646970667358221220ef82c06d4c1a8528a73b673bb77a20301427c72eb76013730b3412f800a2c02f64736f6c63430008150033\n}\n",
+						"bytecode": {
+							"functionDebugData": {},
+							"generatedSources": [],
+							"linkReferences": {},
+							"object": "6080604052348015600e575f80fd5b5060ab8061001b5f395ff3fe6080604052348015600e575f80fd5b50600436106026575f3560e01c806369ab325014602a575b5f80fd5b60306044565b604051603b9190605e565b60405180910390f35b5f81565b5f819050919050565b6058816048565b82525050565b5f602082019050606f5f8301846051565b9291505056fea2646970667358221220ef82c06d4c1a8528a73b673bb77a20301427c72eb76013730b3412f800a2c02f64736f6c63430008150033",
+							"opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH1 0xE JUMPI PUSH0 DUP1 REVERT JUMPDEST POP PUSH1 0xAB DUP1 PUSH2 0x1B PUSH0 CODECOPY PUSH0 RETURN INVALID PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH1 0xE JUMPI PUSH0 DUP1 REVERT JUMPDEST POP PUSH1 0x4 CALLDATASIZE LT PUSH1 0x26 JUMPI PUSH0 CALLDATALOAD PUSH1 0xE0 SHR DUP1 PUSH4 0x69AB3250 EQ PUSH1 0x2A JUMPI JUMPDEST PUSH0 DUP1 REVERT JUMPDEST PUSH1 0x30 PUSH1 0x44 JUMP JUMPDEST PUSH1 0x40 MLOAD PUSH1 0x3B SWAP2 SWAP1 PUSH1 0x5E JUMP JUMPDEST PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 RETURN JUMPDEST PUSH0 DUP2 JUMP JUMPDEST PUSH0 DUP2 SWAP1 POP SWAP2 SWAP1 POP JUMP JUMPDEST PUSH1 0x58 DUP2 PUSH1 0x48 JUMP JUMPDEST DUP3 MSTORE POP POP JUMP JUMPDEST PUSH0 PUSH1 0x20 DUP3 ADD SWAP1 POP PUSH1 0x6F PUSH0 DUP4 ADD DUP5 PUSH1 0x51 JUMP JUMPDEST SWAP3 SWAP2 POP POP JUMP INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 0xEF DUP3 0xC0 PUSH14 0x4C1A8528A73B673BB77A20301427 0xC7 0x2E 0xB7 PUSH1 0x13 PUSH20 0xB3412F800A2C02F64736F6C6343000815003300 ",
+							"sourceMap": "2350:1848:0:-:0;;;;;;;;;;;;;;;;;;;"
+						},
+						"deployedBytecode": {
+							"functionDebugData": {
+								"@NO_ERROR_116": {
+									"entryPoint": 68,
+									"id": 116,
+									"parameterSlots": 0,
+									"returnSlots": 0
+								},
+								"abi_encode_t_uint256_to_t_uint256_fromStack": {
+									"entryPoint": 81,
+									"id": null,
+									"parameterSlots": 2,
+									"returnSlots": 0
+								},
+								"abi_encode_tuple_t_uint256__to_t_uint256__fromStack_reversed": {
+									"entryPoint": 94,
+									"id": null,
+									"parameterSlots": 2,
+									"returnSlots": 1
+								},
+								"cleanup_t_uint256": {
+									"entryPoint": 72,
+									"id": null,
+									"parameterSlots": 1,
+									"returnSlots": 1
+								}
+							},
+							"generatedSources": [
+								{
+									"ast": {
+										"nativeSrc": "0:439:1",
+										"nodeType": "YulBlock",
+										"src": "0:439:1",
+										"statements": [
+											{
+												"body": {
+													"nativeSrc": "52:32:1",
+													"nodeType": "YulBlock",
+													"src": "52:32:1",
+													"statements": [
+														{
+															"nativeSrc": "62:16:1",
+															"nodeType": "YulAssignment",
+															"src": "62:16:1",
+															"value": {
+																"name": "value",
+																"nativeSrc": "73:5:1",
+																"nodeType": "YulIdentifier",
+																"src": "73:5:1"
+															},
+															"variableNames": [
+																{
+																	"name": "cleaned",
+																	"nativeSrc": "62:7:1",
+																	"nodeType": "YulIdentifier",
+																	"src": "62:7:1"
+																}
+															]
+														}
+													]
+												},
+												"name": "cleanup_t_uint256",
+												"nativeSrc": "7:77:1",
+												"nodeType": "YulFunctionDefinition",
+												"parameters": [
+													{
+														"name": "value",
+														"nativeSrc": "34:5:1",
+														"nodeType": "YulTypedName",
+														"src": "34:5:1",
+														"type": ""
+													}
+												],
+												"returnVariables": [
+													{
+														"name": "cleaned",
+														"nativeSrc": "44:7:1",
+														"nodeType": "YulTypedName",
+														"src": "44:7:1",
+														"type": ""
+													}
+												],
+												"src": "7:77:1"
+											},
+											{
+												"body": {
+													"nativeSrc": "155:53:1",
+													"nodeType": "YulBlock",
+													"src": "155:53:1",
+													"statements": [
+														{
+															"expression": {
+																"arguments": [
+																	{
+																		"name": "pos",
+																		"nativeSrc": "172:3:1",
+																		"nodeType": "YulIdentifier",
+																		"src": "172:3:1"
+																	},
+																	{
+																		"arguments": [
+																			{
+																				"name": "value",
+																				"nativeSrc": "195:5:1",
+																				"nodeType": "YulIdentifier",
+																				"src": "195:5:1"
+																			}
+																		],
+																		"functionName": {
+																			"name": "cleanup_t_uint256",
+																			"nativeSrc": "177:17:1",
+																			"nodeType": "YulIdentifier",
+																			"src": "177:17:1"
+																		},
+																		"nativeSrc": "177:24:1",
+																		"nodeType": "YulFunctionCall",
+																		"src": "177:24:1"
+																	}
+																],
+																"functionName": {
+																	"name": "mstore",
+																	"nativeSrc": "165:6:1",
+																	"nodeType": "YulIdentifier",
+																	"src": "165:6:1"
+																},
+																"nativeSrc": "165:37:1",
+																"nodeType": "YulFunctionCall",
+																"src": "165:37:1"
+															},
+															"nativeSrc": "165:37:1",
+															"nodeType": "YulExpressionStatement",
+															"src": "165:37:1"
+														}
+													]
+												},
+												"name": "abi_encode_t_uint256_to_t_uint256_fromStack",
+												"nativeSrc": "90:118:1",
+												"nodeType": "YulFunctionDefinition",
+												"parameters": [
+													{
+														"name": "value",
+														"nativeSrc": "143:5:1",
+														"nodeType": "YulTypedName",
+														"src": "143:5:1",
+														"type": ""
+													},
+													{
+														"name": "pos",
+														"nativeSrc": "150:3:1",
+														"nodeType": "YulTypedName",
+														"src": "150:3:1",
+														"type": ""
+													}
+												],
+												"src": "90:118:1"
+											},
+											{
+												"body": {
+													"nativeSrc": "312:124:1",
+													"nodeType": "YulBlock",
+													"src": "312:124:1",
+													"statements": [
+														{
+															"nativeSrc": "322:26:1",
+															"nodeType": "YulAssignment",
+															"src": "322:26:1",
+															"value": {
+																"arguments": [
+																	{
+																		"name": "headStart",
+																		"nativeSrc": "334:9:1",
+																		"nodeType": "YulIdentifier",
+																		"src": "334:9:1"
+																	},
+																	{
+																		"kind": "number",
+																		"nativeSrc": "345:2:1",
+																		"nodeType": "YulLiteral",
+																		"src": "345:2:1",
+																		"type": "",
+																		"value": "32"
+																	}
+																],
+																"functionName": {
+																	"name": "add",
+																	"nativeSrc": "330:3:1",
+																	"nodeType": "YulIdentifier",
+																	"src": "330:3:1"
+																},
+																"nativeSrc": "330:18:1",
+																"nodeType": "YulFunctionCall",
+																"src": "330:18:1"
+															},
+															"variableNames": [
+																{
+																	"name": "tail",
+																	"nativeSrc": "322:4:1",
+																	"nodeType": "YulIdentifier",
+																	"src": "322:4:1"
+																}
+															]
+														},
+														{
+															"expression": {
+																"arguments": [
+																	{
+																		"name": "value0",
+																		"nativeSrc": "402:6:1",
+																		"nodeType": "YulIdentifier",
+																		"src": "402:6:1"
+																	},
+																	{
+																		"arguments": [
+																			{
+																				"name": "headStart",
+																				"nativeSrc": "415:9:1",
+																				"nodeType": "YulIdentifier",
+																				"src": "415:9:1"
+																			},
+																			{
+																				"kind": "number",
+																				"nativeSrc": "426:1:1",
+																				"nodeType": "YulLiteral",
+																				"src": "426:1:1",
+																				"type": "",
+																				"value": "0"
+																			}
+																		],
+																		"functionName": {
+																			"name": "add",
+																			"nativeSrc": "411:3:1",
+																			"nodeType": "YulIdentifier",
+																			"src": "411:3:1"
+																		},
+																		"nativeSrc": "411:17:1",
+																		"nodeType": "YulFunctionCall",
+																		"src": "411:17:1"
+																	}
+																],
+																"functionName": {
+																	"name": "abi_encode_t_uint256_to_t_uint256_fromStack",
+																	"nativeSrc": "358:43:1",
+																	"nodeType": "YulIdentifier",
+																	"src": "358:43:1"
+																},
+																"nativeSrc": "358:71:1",
+																"nodeType": "YulFunctionCall",
+																"src": "358:71:1"
+															},
+															"nativeSrc": "358:71:1",
+															"nodeType": "YulExpressionStatement",
+															"src": "358:71:1"
+														}
+													]
+												},
+												"name": "abi_encode_tuple_t_uint256__to_t_uint256__fromStack_reversed",
+												"nativeSrc": "214:222:1",
+												"nodeType": "YulFunctionDefinition",
+												"parameters": [
+													{
+														"name": "headStart",
+														"nativeSrc": "284:9:1",
+														"nodeType": "YulTypedName",
+														"src": "284:9:1",
+														"type": ""
+													},
+													{
+														"name": "value0",
+														"nativeSrc": "296:6:1",
+														"nodeType": "YulTypedName",
+														"src": "296:6:1",
+														"type": ""
+													}
+												],
+												"returnVariables": [
+													{
+														"name": "tail",
+														"nativeSrc": "307:4:1",
+														"nodeType": "YulTypedName",
+														"src": "307:4:1",
+														"type": ""
+													}
+												],
+												"src": "214:222:1"
+											}
+										]
+									},
+									"contents": "{\n\n    function cleanup_t_uint256(value) -> cleaned {\n        cleaned := value\n    }\n\n    function abi_encode_t_uint256_to_t_uint256_fromStack(value, pos) {\n        mstore(pos, cleanup_t_uint256(value))\n    }\n\n    function abi_encode_tuple_t_uint256__to_t_uint256__fromStack_reversed(headStart , value0) -> tail {\n        tail := add(headStart, 32)\n\n        abi_encode_t_uint256_to_t_uint256_fromStack(value0,  add(headStart, 0))\n\n    }\n\n}\n",
+									"id": 1,
+									"language": "Yul",
+									"name": "#utility.yul"
+								}
+							],
+							"immutableReferences": {},
+							"linkReferences": {},
+							"object": "6080604052348015600e575f80fd5b50600436106026575f3560e01c806369ab325014602a575b5f80fd5b60306044565b604051603b9190605e565b60405180910390f35b5f81565b5f819050919050565b6058816048565b82525050565b5f602082019050606f5f8301846051565b9291505056fea2646970667358221220ef82c06d4c1a8528a73b673bb77a20301427c72eb76013730b3412f800a2c02f64736f6c63430008150033",
+							"opcodes": "PUSH1 0x80 PUSH1 0x40 MSTORE CALLVALUE DUP1 ISZERO PUSH1 0xE JUMPI PUSH0 DUP1 REVERT JUMPDEST POP PUSH1 0x4 CALLDATASIZE LT PUSH1 0x26 JUMPI PUSH0 CALLDATALOAD PUSH1 0xE0 SHR DUP1 PUSH4 0x69AB3250 EQ PUSH1 0x2A JUMPI JUMPDEST PUSH0 DUP1 REVERT JUMPDEST PUSH1 0x30 PUSH1 0x44 JUMP JUMPDEST PUSH1 0x40 MLOAD PUSH1 0x3B SWAP2 SWAP1 PUSH1 0x5E JUMP JUMPDEST PUSH1 0x40 MLOAD DUP1 SWAP2 SUB SWAP1 RETURN JUMPDEST PUSH0 DUP2 JUMP JUMPDEST PUSH0 DUP2 SWAP1 POP SWAP2 SWAP1 POP JUMP JUMPDEST PUSH1 0x58 DUP2 PUSH1 0x48 JUMP JUMPDEST DUP3 MSTORE POP POP JUMP JUMPDEST PUSH0 PUSH1 0x20 DUP3 ADD SWAP1 POP PUSH1 0x6F PUSH0 DUP4 ADD DUP5 PUSH1 0x51 JUMP JUMPDEST SWAP3 SWAP2 POP POP JUMP INVALID LOG2 PUSH5 0x6970667358 0x22 SLT KECCAK256 0xEF DUP3 0xC0 PUSH14 0x4C1A8528A73B673BB77A20301427 0xC7 0x2E 0xB7 PUSH1 0x13 PUSH20 0xB3412F800A2C02F64736F6C6343000815003300 ",
+							"sourceMap": "2350:1848:0:-:0;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;2384:33;;;:::i;:::-;;;;;;;:::i;:::-;;;;;;;;;2416:1;2384:33;:::o;7:77:1:-;44:7;73:5;62:16;;7:77;;;:::o;90:118::-;177:24;195:5;177:24;:::i;:::-;172:3;165:37;90:118;;:::o;214:222::-;307:4;345:2;334:9;330:18;322:26;;358:71;426:1;415:9;411:17;402:6;358:71;:::i;:::-;214:222;;;;:::o"
+						},
+						"gasEstimates": {
+							"creation": {
+								"codeDepositCost": "34200",
+								"executionCost": "85",
+								"totalCost": "34285"
+							},
+							"external": {
+								"NO_ERROR()": "302"
+							}
+						},
+						"legacyAssembly": {
+							".code": [
+								{
+									"begin": 2350,
+									"end": 4198,
+									"name": "PUSH",
+									"source": 0,
+									"value": "80"
+								},
+								{
+									"begin": 2350,
+									"end": 4198,
+									"name": "PUSH",
+									"source": 0,
+									"value": "40"
+								},
+								{
+									"begin": 2350,
+									"end": 4198,
+									"name": "MSTORE",
+									"source": 0
+								},
+								{
+									"begin": 2350,
+									"end": 4198,
+									"name": "CALLVALUE",
+									"source": 0
+								},
+								{
+									"begin": 2350,
+									"end": 4198,
+									"name": "DUP1",
+									"source": 0
+								},
+								{
+									"begin": 2350,
+									"end": 4198,
+									"name": "ISZERO",
+									"source": 0
+								},
+								{
+									"begin": 2350,
+									"end": 4198,
+									"name": "PUSH [tag]",
+									"source": 0,
+									"value": "1"
+								},
+								{
+									"begin": 2350,
+									"end": 4198,
+									"name": "JUMPI",
+									"source": 0
+								},
+								{
+									"begin": 2350,
+									"end": 4198,
+									"name": "PUSH",
+									"source": 0,
+									"value": "0"
+								},
+								{
+									"begin": 2350,
+									"end": 4198,
+									"name": "DUP1",
+									"source": 0
+								},
+								{
+									"begin": 2350,
+									"end": 4198,
+									"name": "REVERT",
+									"source": 0
+								},
+								{
+									"begin": 2350,
+									"end": 4198,
+									"name": "tag",
+									"source": 0,
+									"value": "1"
+								},
+								{
+									"begin": 2350,
+									"end": 4198,
+									"name": "JUMPDEST",
+									"source": 0
+								},
+								{
+									"begin": 2350,
+									"end": 4198,
+									"name": "POP",
+									"source": 0
+								},
+								{
+									"begin": 2350,
+									"end": 4198,
+									"name": "PUSH #[$]",
+									"source": 0,
+									"value": "0000000000000000000000000000000000000000000000000000000000000000"
+								},
+								{
+									"begin": 2350,
+									"end": 4198,
+									"name": "DUP1",
+									"source": 0
+								},
+								{
+									"begin": 2350,
+									"end": 4198,
+									"name": "PUSH [$]",
+									"source": 0,
+									"value": "0000000000000000000000000000000000000000000000000000000000000000"
+								},
+								{
+									"begin": 2350,
+									"end": 4198,
+									"name": "PUSH",
+									"source": 0,
+									"value": "0"
+								},
+								{
+									"begin": 2350,
+									"end": 4198,
+									"name": "CODECOPY",
+									"source": 0
+								},
+								{
+									"begin": 2350,
+									"end": 4198,
+									"name": "PUSH",
+									"source": 0,
+									"value": "0"
+								},
+								{
+									"begin": 2350,
+									"end": 4198,
+									"name": "RETURN",
+									"source": 0
+								}
+							],
+							".data": {
+								"0": {
+									".auxdata": "a2646970667358221220ef82c06d4c1a8528a73b673bb77a20301427c72eb76013730b3412f800a2c02f64736f6c63430008150033",
+									".code": [
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "PUSH",
+											"source": 0,
+											"value": "80"
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "PUSH",
+											"source": 0,
+											"value": "40"
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "MSTORE",
+											"source": 0
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "CALLVALUE",
+											"source": 0
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "DUP1",
+											"source": 0
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "ISZERO",
+											"source": 0
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "PUSH [tag]",
+											"source": 0,
+											"value": "1"
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "JUMPI",
+											"source": 0
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "PUSH",
+											"source": 0,
+											"value": "0"
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "DUP1",
+											"source": 0
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "REVERT",
+											"source": 0
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "tag",
+											"source": 0,
+											"value": "1"
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "JUMPDEST",
+											"source": 0
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "POP",
+											"source": 0
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "PUSH",
+											"source": 0,
+											"value": "4"
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "CALLDATASIZE",
+											"source": 0
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "LT",
+											"source": 0
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "PUSH [tag]",
+											"source": 0,
+											"value": "2"
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "JUMPI",
+											"source": 0
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "PUSH",
+											"source": 0,
+											"value": "0"
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "CALLDATALOAD",
+											"source": 0
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "PUSH",
+											"source": 0,
+											"value": "E0"
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "SHR",
+											"source": 0
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "DUP1",
+											"source": 0
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "PUSH",
+											"source": 0,
+											"value": "69AB3250"
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "EQ",
+											"source": 0
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "PUSH [tag]",
+											"source": 0,
+											"value": "3"
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "JUMPI",
+											"source": 0
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "tag",
+											"source": 0,
+											"value": "2"
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "JUMPDEST",
+											"source": 0
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "PUSH",
+											"source": 0,
+											"value": "0"
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "DUP1",
+											"source": 0
+										},
+										{
+											"begin": 2350,
+											"end": 4198,
+											"name": "REVERT",
+											"source": 0
+										},
+										{
+											"begin": 2384,
+											"end": 2417,
+											"name": "tag",
+											"source": 0,
+											"value": "3"
+										},
+										{
+											"begin": 2384,
+											"end": 2417,
+											"name": "JUMPDEST",
+											"source": 0
+										},
+										{
+											"begin": 2384,
+											"end": 2417,
+											"name": "PUSH [tag]",
+											"source": 0,
+											"value": "4"
+										},
+										{
+											"begin": 2384,
+											"end": 2417,
+											"name": "PUSH [tag]",
+											"source": 0,
+											"value": "5"
+										},
+										{
+											"begin": 2384,
+											"end": 2417,
+											"jumpType": "[in]",
+											"name": "JUMP",
+											"source": 0
+										},
+										{
+											"begin": 2384,
+											"end": 2417,
+											"name": "tag",
+											"source": 0,
+											"value": "4"
+										},
+										{
+											"begin": 2384,
+											"end": 2417,
+											"name": "JUMPDEST",
+											"source": 0
+										},
+										{
+											"begin": 2384,
+											"end": 2417,
+											"name": "PUSH",
+											"source": 0,
+											"value": "40"
+										},
+										{
+											"begin": 2384,
+											"end": 2417,
+											"name": "MLOAD",
+											"source": 0
+										},
+										{
+											"begin": 2384,
+											"end": 2417,
+											"name": "PUSH [tag]",
+											"source": 0,
+											"value": "6"
+										},
+										{
+											"begin": 2384,
+											"end": 2417,
+											"name": "SWAP2",
+											"source": 0
+										},
+										{
+											"begin": 2384,
+											"end": 2417,
+											"name": "SWAP1",
+											"source": 0
+										},
+										{
+											"begin": 2384,
+											"end": 2417,
+											"name": "PUSH [tag]",
+											"source": 0,
+											"value": "7"
+										},
+										{
+											"begin": 2384,
+											"end": 2417,
+											"jumpType": "[in]",
+											"name": "JUMP",
+											"source": 0
+										},
+										{
+											"begin": 2384,
+											"end": 2417,
+											"name": "tag",
+											"source": 0,
+											"value": "6"
+										},
+										{
+											"begin": 2384,
+											"end": 2417,
+											"name": "JUMPDEST",
+											"source": 0
+										},
+										{
+											"begin": 2384,
+											"end": 2417,
+											"name": "PUSH",
+											"source": 0,
+											"value": "40"
+										},
+										{
+											"begin": 2384,
+											"end": 2417,
+											"name": "MLOAD",
+											"source": 0
+										},
+										{
+											"begin": 2384,
+											"end": 2417,
+											"name": "DUP1",
+											"source": 0
+										},
+										{
+											"begin": 2384,
+											"end": 2417,
+											"name": "SWAP2",
+											"source": 0
+										},
+										{
+											"begin": 2384,
+											"end": 2417,
+											"name": "SUB",
+											"source": 0
+										},
+										{
+											"begin": 2384,
+											"end": 2417,
+											"name": "SWAP1",
+											"source": 0
+										},
+										{
+											"begin": 2384,
+											"end": 2417,
+											"name": "RETURN",
+											"source": 0
+										},
+										{
+											"begin": 2384,
+											"end": 2417,
+											"name": "tag",
+											"source": 0,
+											"value": "5"
+										},
+										{
+											"begin": 2384,
+											"end": 2417,
+											"name": "JUMPDEST",
+											"source": 0
+										},
+										{
+											"begin": 2416,
+											"end": 2417,
+											"name": "PUSH",
+											"source": 0,
+											"value": "0"
+										},
+										{
+											"begin": 2384,
+											"end": 2417,
+											"name": "DUP2",
+											"source": 0
+										},
+										{
+											"begin": 2384,
+											"end": 2417,
+											"jumpType": "[out]",
+											"name": "JUMP",
+											"source": 0
+										},
+										{
+											"begin": 7,
+											"end": 84,
+											"name": "tag",
+											"source": 1,
+											"value": "8"
+										},
+										{
+											"begin": 7,
+											"end": 84,
+											"name": "JUMPDEST",
+											"source": 1
+										},
+										{
+											"begin": 44,
+											"end": 51,
+											"name": "PUSH",
+											"source": 1,
+											"value": "0"
+										},
+										{
+											"begin": 73,
+											"end": 78,
+											"name": "DUP2",
+											"source": 1
+										},
+										{
+											"begin": 62,
+											"end": 78,
+											"name": "SWAP1",
+											"source": 1
+										},
+										{
+											"begin": 62,
+											"end": 78,
+											"name": "POP",
+											"source": 1
+										},
+										{
+											"begin": 7,
+											"end": 84,
+											"name": "SWAP2",
+											"source": 1
+										},
+										{
+											"begin": 7,
+											"end": 84,
+											"name": "SWAP1",
+											"source": 1
+										},
+										{
+											"begin": 7,
+											"end": 84,
+											"name": "POP",
+											"source": 1
+										},
+										{
+											"begin": 7,
+											"end": 84,
+											"jumpType": "[out]",
+											"name": "JUMP",
+											"source": 1
+										},
+										{
+											"begin": 90,
+											"end": 208,
+											"name": "tag",
+											"source": 1,
+											"value": "9"
+										},
+										{
+											"begin": 90,
+											"end": 208,
+											"name": "JUMPDEST",
+											"source": 1
+										},
+										{
+											"begin": 177,
+											"end": 201,
+											"name": "PUSH [tag]",
+											"source": 1,
+											"value": "13"
+										},
+										{
+											"begin": 195,
+											"end": 200,
+											"name": "DUP2",
+											"source": 1
+										},
+										{
+											"begin": 177,
+											"end": 201,
+											"name": "PUSH [tag]",
+											"source": 1,
+											"value": "8"
+										},
+										{
+											"begin": 177,
+											"end": 201,
+											"jumpType": "[in]",
+											"name": "JUMP",
+											"source": 1
+										},
+										{
+											"begin": 177,
+											"end": 201,
+											"name": "tag",
+											"source": 1,
+											"value": "13"
+										},
+										{
+											"begin": 177,
+											"end": 201,
+											"name": "JUMPDEST",
+											"source": 1
+										},
+										{
+											"begin": 172,
+											"end": 175,
+											"name": "DUP3",
+											"source": 1
+										},
+										{
+											"begin": 165,
+											"end": 202,
+											"name": "MSTORE",
+											"source": 1
+										},
+										{
+											"begin": 90,
+											"end": 208,
+											"name": "POP",
+											"source": 1
+										},
+										{
+											"begin": 90,
+											"end": 208,
+											"name": "POP",
+											"source": 1
+										},
+										{
+											"begin": 90,
+											"end": 208,
+											"jumpType": "[out]",
+											"name": "JUMP",
+											"source": 1
+										},
+										{
+											"begin": 214,
+											"end": 436,
+											"name": "tag",
+											"source": 1,
+											"value": "7"
+										},
+										{
+											"begin": 214,
+											"end": 436,
+											"name": "JUMPDEST",
+											"source": 1
+										},
+										{
+											"begin": 307,
+											"end": 311,
+											"name": "PUSH",
+											"source": 1,
+											"value": "0"
+										},
+										{
+											"begin": 345,
+											"end": 347,
+											"name": "PUSH",
+											"source": 1,
+											"value": "20"
+										},
+										{
+											"begin": 334,
+											"end": 343,
+											"name": "DUP3",
+											"source": 1
+										},
+										{
+											"begin": 330,
+											"end": 348,
+											"name": "ADD",
+											"source": 1
+										},
+										{
+											"begin": 322,
+											"end": 348,
+											"name": "SWAP1",
+											"source": 1
+										},
+										{
+											"begin": 322,
+											"end": 348,
+											"name": "POP",
+											"source": 1
+										},
+										{
+											"begin": 358,
+											"end": 429,
+											"name": "PUSH [tag]",
+											"source": 1,
+											"value": "15"
+										},
+										{
+											"begin": 426,
+											"end": 427,
+											"name": "PUSH",
+											"source": 1,
+											"value": "0"
+										},
+										{
+											"begin": 415,
+											"end": 424,
+											"name": "DUP4",
+											"source": 1
+										},
+										{
+											"begin": 411,
+											"end": 428,
+											"name": "ADD",
+											"source": 1
+										},
+										{
+											"begin": 402,
+											"end": 408,
+											"name": "DUP5",
+											"source": 1
+										},
+										{
+											"begin": 358,
+											"end": 429,
+											"name": "PUSH [tag]",
+											"source": 1,
+											"value": "9"
+										},
+										{
+											"begin": 358,
+											"end": 429,
+											"jumpType": "[in]",
+											"name": "JUMP",
+											"source": 1
+										},
+										{
+											"begin": 358,
+											"end": 429,
+											"name": "tag",
+											"source": 1,
+											"value": "15"
+										},
+										{
+											"begin": 358,
+											"end": 429,
+											"name": "JUMPDEST",
+											"source": 1
+										},
+										{
+											"begin": 214,
+											"end": 436,
+											"name": "SWAP3",
+											"source": 1
+										},
+										{
+											"begin": 214,
+											"end": 436,
+											"name": "SWAP2",
+											"source": 1
+										},
+										{
+											"begin": 214,
+											"end": 436,
+											"name": "POP",
+											"source": 1
+										},
+										{
+											"begin": 214,
+											"end": 436,
+											"name": "POP",
+											"source": 1
+										},
+										{
+											"begin": 214,
+											"end": 436,
+											"jumpType": "[out]",
+											"name": "JUMP",
+											"source": 1
+										}
+									]
+								}
+							},
+							"sourceList": [
+								"compound_2/ErrorReporter.sol",
+								"#utility.yul"
+							]
+						},
+						"methodIdentifiers": {
+							"NO_ERROR()": "69ab3250"
+						}
+					},
+					"metadata": "{\"compiler\":{\"version\":\"0.8.21+commit.d9974bed\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"AcceptAdminPendingAdminCheck\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"actualAddAmount\",\"type\":\"uint256\"}],\"name\":\"AddReservesFactorFreshCheck\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"BorrowCashNotAvailable\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"errorCode\",\"type\":\"uint256\"}],\"name\":\"BorrowComptrollerRejection\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"BorrowFreshnessCheck\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"errorCode\",\"type\":\"uint256\"}],\"name\":\"LiquidateAccrueBorrowInterestFailed\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"errorCode\",\"type\":\"uint256\"}],\"name\":\"LiquidateAccrueCollateralInterestFailed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"LiquidateCloseAmountIsUintMax\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"LiquidateCloseAmountIsZero\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"LiquidateCollateralFreshnessCheck\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"errorCode\",\"type\":\"uint256\"}],\"name\":\"LiquidateComptrollerRejection\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"LiquidateFreshnessCheck\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"LiquidateLiquidatorIsBorrower\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"errorCode\",\"type\":\"uint256\"}],\"name\":\"LiquidateRepayBorrowFreshFailed\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"errorCode\",\"type\":\"uint256\"}],\"name\":\"LiquidateSeizeComptrollerRejection\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"LiquidateSeizeLiquidatorIsBorrower\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"errorCode\",\"type\":\"uint256\"}],\"name\":\"MintComptrollerRejection\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"MintFreshnessCheck\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"errorCode\",\"type\":\"uint256\"}],\"name\":\"RedeemComptrollerRejection\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"RedeemFreshnessCheck\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"RedeemTransferOutNotPossible\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ReduceReservesAdminCheck\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ReduceReservesCashNotAvailable\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ReduceReservesCashValidation\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ReduceReservesFreshCheck\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"errorCode\",\"type\":\"uint256\"}],\"name\":\"RepayBorrowComptrollerRejection\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"RepayBorrowFreshnessCheck\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"SetComptrollerOwnerCheck\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"SetInterestRateModelFreshCheck\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"SetInterestRateModelOwnerCheck\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"SetPendingAdminOwnerCheck\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"SetReserveFactorAdminCheck\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"SetReserveFactorBoundsCheck\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"SetReserveFactorFreshCheck\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"errorCode\",\"type\":\"uint256\"}],\"name\":\"TransferComptrollerRejection\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"TransferNotAllowed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"TransferNotEnough\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"TransferTooMuch\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NO_ERROR\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"compound_2/ErrorReporter.sol\":\"TokenErrorReporter\"},\"evmVersion\":\"shanghai\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"compound_2/ErrorReporter.sol\":{\"keccak256\":\"0xc565694807fce4d9eb218b77d2e7eb7665e0d6950cbfa9edd1e3c09e417b809c\",\"license\":\"BSD-3-Clause\",\"urls\":[\"bzz-raw://610e579eb6fbd8da9ba8f2d04f17b2213e858466177c488e2f3e4a37a314b864\",\"dweb:/ipfs/QmZmEvsi6qkvaPg6j2u3D3QZJbRtm2CPz8jf83HRkKrxuu\"]}},\"version\":1}",
+					"storageLayout": {
+						"storage": [],
+						"types": null
+					},
+					"userdoc": {
+						"kind": "user",
+						"methods": {},
+						"version": 1
+					}
+				}
+			}
+		},
+		"sources": {
+			"compound_2/ErrorReporter.sol": {
+				"ast": {
+					"absolutePath": "compound_2/ErrorReporter.sol",
+					"exportedSymbols": {
+						"ComptrollerErrorReporter": [
+							113
+						],
+						"TokenErrorReporter": [
+							215
+						]
+					},
+					"id": 216,
+					"license": "BSD-3-Clause",
+					"nodeType": "SourceUnit",
+					"nodes": [
+						{
+							"id": 1,
+							"literals": [
+								"solidity",
+								"^",
+								"0.8",
+								".10"
+							],
+							"nodeType": "PragmaDirective",
+							"src": "41:24:0"
+						},
+						{
+							"abstract": false,
+							"baseContracts": [],
+							"canonicalName": "ComptrollerErrorReporter",
+							"contractDependencies": [],
+							"contractKind": "contract",
+							"fullyImplemented": true,
+							"id": 113,
+							"linearizedBaseContracts": [
+								113
+							],
+							"name": "ComptrollerErrorReporter",
+							"nameLocation": "76:24:0",
+							"nodeType": "ContractDefinition",
+							"nodes": [
+								{
+									"canonicalName": "ComptrollerErrorReporter.Error",
+									"id": 20,
+									"members": [
+										{
+											"id": 2,
+											"name": "NO_ERROR",
+											"nameLocation": "128:8:0",
+											"nodeType": "EnumValue",
+											"src": "128:8:0"
+										},
+										{
+											"id": 3,
+											"name": "UNAUTHORIZED",
+											"nameLocation": "146:12:0",
+											"nodeType": "EnumValue",
+											"src": "146:12:0"
+										},
+										{
+											"id": 4,
+											"name": "COMPTROLLER_MISMATCH",
+											"nameLocation": "168:20:0",
+											"nodeType": "EnumValue",
+											"src": "168:20:0"
+										},
+										{
+											"id": 5,
+											"name": "INSUFFICIENT_SHORTFALL",
+											"nameLocation": "198:22:0",
+											"nodeType": "EnumValue",
+											"src": "198:22:0"
+										},
+										{
+											"id": 6,
+											"name": "INSUFFICIENT_LIQUIDITY",
+											"nameLocation": "230:22:0",
+											"nodeType": "EnumValue",
+											"src": "230:22:0"
+										},
+										{
+											"id": 7,
+											"name": "INVALID_CLOSE_FACTOR",
+											"nameLocation": "262:20:0",
+											"nodeType": "EnumValue",
+											"src": "262:20:0"
+										},
+										{
+											"id": 8,
+											"name": "INVALID_COLLATERAL_FACTOR",
+											"nameLocation": "292:25:0",
+											"nodeType": "EnumValue",
+											"src": "292:25:0"
+										},
+										{
+											"id": 9,
+											"name": "INVALID_LIQUIDATION_INCENTIVE",
+											"nameLocation": "327:29:0",
+											"nodeType": "EnumValue",
+											"src": "327:29:0"
+										},
+										{
+											"id": 10,
+											"name": "MARKET_NOT_ENTERED",
+											"nameLocation": "366:18:0",
+											"nodeType": "EnumValue",
+											"src": "366:18:0"
+										},
+										{
+											"id": 11,
+											"name": "MARKET_NOT_LISTED",
+											"nameLocation": "416:17:0",
+											"nodeType": "EnumValue",
+											"src": "416:17:0"
+										},
+										{
+											"id": 12,
+											"name": "MARKET_ALREADY_LISTED",
+											"nameLocation": "443:21:0",
+											"nodeType": "EnumValue",
+											"src": "443:21:0"
+										},
+										{
+											"id": 13,
+											"name": "MATH_ERROR",
+											"nameLocation": "474:10:0",
+											"nodeType": "EnumValue",
+											"src": "474:10:0"
+										},
+										{
+											"id": 14,
+											"name": "NONZERO_BORROW_BALANCE",
+											"nameLocation": "494:22:0",
+											"nodeType": "EnumValue",
+											"src": "494:22:0"
+										},
+										{
+											"id": 15,
+											"name": "PRICE_ERROR",
+											"nameLocation": "526:11:0",
+											"nodeType": "EnumValue",
+											"src": "526:11:0"
+										},
+										{
+											"id": 16,
+											"name": "REJECTION",
+											"nameLocation": "547:9:0",
+											"nodeType": "EnumValue",
+											"src": "547:9:0"
+										},
+										{
+											"id": 17,
+											"name": "SNAPSHOT_ERROR",
+											"nameLocation": "566:14:0",
+											"nodeType": "EnumValue",
+											"src": "566:14:0"
+										},
+										{
+											"id": 18,
+											"name": "TOO_MANY_ASSETS",
+											"nameLocation": "590:15:0",
+											"nodeType": "EnumValue",
+											"src": "590:15:0"
+										},
+										{
+											"id": 19,
+											"name": "TOO_MUCH_REPAY",
+											"nameLocation": "615:14:0",
+											"nodeType": "EnumValue",
+											"src": "615:14:0"
+										}
+									],
+									"name": "Error",
+									"nameLocation": "112:5:0",
+									"nodeType": "EnumDefinition",
+									"src": "107:528:0"
+								},
+								{
+									"canonicalName": "ComptrollerErrorReporter.FailureInfo",
+									"id": 41,
+									"members": [
+										{
+											"id": 21,
+											"name": "ACCEPT_ADMIN_PENDING_ADMIN_CHECK",
+											"nameLocation": "668:32:0",
+											"nodeType": "EnumValue",
+											"src": "668:32:0"
+										},
+										{
+											"id": 22,
+											"name": "ACCEPT_PENDING_IMPLEMENTATION_ADDRESS_CHECK",
+											"nameLocation": "710:43:0",
+											"nodeType": "EnumValue",
+											"src": "710:43:0"
+										},
+										{
+											"id": 23,
+											"name": "EXIT_MARKET_BALANCE_OWED",
+											"nameLocation": "763:24:0",
+											"nodeType": "EnumValue",
+											"src": "763:24:0"
+										},
+										{
+											"id": 24,
+											"name": "EXIT_MARKET_REJECTION",
+											"nameLocation": "797:21:0",
+											"nodeType": "EnumValue",
+											"src": "797:21:0"
+										},
+										{
+											"id": 25,
+											"name": "SET_CLOSE_FACTOR_OWNER_CHECK",
+											"nameLocation": "828:28:0",
+											"nodeType": "EnumValue",
+											"src": "828:28:0"
+										},
+										{
+											"id": 26,
+											"name": "SET_CLOSE_FACTOR_VALIDATION",
+											"nameLocation": "866:27:0",
+											"nodeType": "EnumValue",
+											"src": "866:27:0"
+										},
+										{
+											"id": 27,
+											"name": "SET_COLLATERAL_FACTOR_OWNER_CHECK",
+											"nameLocation": "903:33:0",
+											"nodeType": "EnumValue",
+											"src": "903:33:0"
+										},
+										{
+											"id": 28,
+											"name": "SET_COLLATERAL_FACTOR_NO_EXISTS",
+											"nameLocation": "946:31:0",
+											"nodeType": "EnumValue",
+											"src": "946:31:0"
+										},
+										{
+											"id": 29,
+											"name": "SET_COLLATERAL_FACTOR_VALIDATION",
+											"nameLocation": "987:32:0",
+											"nodeType": "EnumValue",
+											"src": "987:32:0"
+										},
+										{
+											"id": 30,
+											"name": "SET_COLLATERAL_FACTOR_WITHOUT_PRICE",
+											"nameLocation": "1029:35:0",
+											"nodeType": "EnumValue",
+											"src": "1029:35:0"
+										},
+										{
+											"id": 31,
+											"name": "SET_IMPLEMENTATION_OWNER_CHECK",
+											"nameLocation": "1074:30:0",
+											"nodeType": "EnumValue",
+											"src": "1074:30:0"
+										},
+										{
+											"id": 32,
+											"name": "SET_LIQUIDATION_INCENTIVE_OWNER_CHECK",
+											"nameLocation": "1114:37:0",
+											"nodeType": "EnumValue",
+											"src": "1114:37:0"
+										},
+										{
+											"id": 33,
+											"name": "SET_LIQUIDATION_INCENTIVE_VALIDATION",
+											"nameLocation": "1161:36:0",
+											"nodeType": "EnumValue",
+											"src": "1161:36:0"
+										},
+										{
+											"id": 34,
+											"name": "SET_MAX_ASSETS_OWNER_CHECK",
+											"nameLocation": "1207:26:0",
+											"nodeType": "EnumValue",
+											"src": "1207:26:0"
+										},
+										{
+											"id": 35,
+											"name": "SET_PENDING_ADMIN_OWNER_CHECK",
+											"nameLocation": "1243:29:0",
+											"nodeType": "EnumValue",
+											"src": "1243:29:0"
+										},
+										{
+											"id": 36,
+											"name": "SET_PENDING_IMPLEMENTATION_OWNER_CHECK",
+											"nameLocation": "1282:38:0",
+											"nodeType": "EnumValue",
+											"src": "1282:38:0"
+										},
+										{
+											"id": 37,
+											"name": "SET_PRICE_ORACLE_OWNER_CHECK",
+											"nameLocation": "1330:28:0",
+											"nodeType": "EnumValue",
+											"src": "1330:28:0"
+										},
+										{
+											"id": 38,
+											"name": "SUPPORT_MARKET_EXISTS",
+											"nameLocation": "1368:21:0",
+											"nodeType": "EnumValue",
+											"src": "1368:21:0"
+										},
+										{
+											"id": 39,
+											"name": "SUPPORT_MARKET_OWNER_CHECK",
+											"nameLocation": "1399:26:0",
+											"nodeType": "EnumValue",
+											"src": "1399:26:0"
+										},
+										{
+											"id": 40,
+											"name": "SET_PAUSE_GUARDIAN_OWNER_CHECK",
+											"nameLocation": "1435:30:0",
+											"nodeType": "EnumValue",
+											"src": "1435:30:0"
+										}
+									],
+									"name": "FailureInfo",
+									"nameLocation": "646:11:0",
+									"nodeType": "EnumDefinition",
+									"src": "641:830:0"
+								},
+								{
+									"anonymous": false,
+									"documentation": {
+										"id": 42,
+										"nodeType": "StructuredDocumentation",
+										"src": "1477:234:0",
+										"text": " @dev `error` corresponds to enum Error; `info` corresponds to enum FailureInfo, and `detail` is an arbitrary\n contract-specific code that enables us to report opaque error codes from upgradeable contracts.*"
+									},
+									"eventSelector": "45b96fe442630264581b197e84bbada861235052c5a1aadfff9ea4e40a969aa0",
+									"id": 50,
+									"name": "Failure",
+									"nameLocation": "1722:7:0",
+									"nodeType": "EventDefinition",
+									"parameters": {
+										"id": 49,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 44,
+												"indexed": false,
+												"mutability": "mutable",
+												"name": "error",
+												"nameLocation": "1735:5:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 50,
+												"src": "1730:10:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 43,
+													"name": "uint",
+													"nodeType": "ElementaryTypeName",
+													"src": "1730:4:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											},
+											{
+												"constant": false,
+												"id": 46,
+												"indexed": false,
+												"mutability": "mutable",
+												"name": "info",
+												"nameLocation": "1747:4:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 50,
+												"src": "1742:9:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 45,
+													"name": "uint",
+													"nodeType": "ElementaryTypeName",
+													"src": "1742:4:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											},
+											{
+												"constant": false,
+												"id": 48,
+												"indexed": false,
+												"mutability": "mutable",
+												"name": "detail",
+												"nameLocation": "1758:6:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 50,
+												"src": "1753:11:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 47,
+													"name": "uint",
+													"nodeType": "ElementaryTypeName",
+													"src": "1753:4:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "1729:36:0"
+									},
+									"src": "1716:50:0"
+								},
+								{
+									"body": {
+										"id": 79,
+										"nodeType": "Block",
+										"src": "1963:82:0",
+										"statements": [
+											{
+												"eventCall": {
+													"arguments": [
+														{
+															"arguments": [
+																{
+																	"id": 65,
+																	"name": "err",
+																	"nodeType": "Identifier",
+																	"overloadedDeclarations": [],
+																	"referencedDeclaration": 54,
+																	"src": "1991:3:0",
+																	"typeDescriptions": {
+																		"typeIdentifier": "t_enum$_Error_$20",
+																		"typeString": "enum ComptrollerErrorReporter.Error"
+																	}
+																}
+															],
+															"expression": {
+																"argumentTypes": [
+																	{
+																		"typeIdentifier": "t_enum$_Error_$20",
+																		"typeString": "enum ComptrollerErrorReporter.Error"
+																	}
+																],
+																"id": 64,
+																"isConstant": false,
+																"isLValue": false,
+																"isPure": true,
+																"lValueRequested": false,
+																"nodeType": "ElementaryTypeNameExpression",
+																"src": "1986:4:0",
+																"typeDescriptions": {
+																	"typeIdentifier": "t_type$_t_uint256_$",
+																	"typeString": "type(uint256)"
+																},
+																"typeName": {
+																	"id": 63,
+																	"name": "uint",
+																	"nodeType": "ElementaryTypeName",
+																	"src": "1986:4:0",
+																	"typeDescriptions": {}
+																}
+															},
+															"id": 66,
+															"isConstant": false,
+															"isLValue": false,
+															"isPure": false,
+															"kind": "typeConversion",
+															"lValueRequested": false,
+															"nameLocations": [],
+															"names": [],
+															"nodeType": "FunctionCall",
+															"src": "1986:9:0",
+															"tryCall": false,
+															"typeDescriptions": {
+																"typeIdentifier": "t_uint256",
+																"typeString": "uint256"
+															}
+														},
+														{
+															"arguments": [
+																{
+																	"id": 69,
+																	"name": "info",
+																	"nodeType": "Identifier",
+																	"overloadedDeclarations": [],
+																	"referencedDeclaration": 57,
+																	"src": "2002:4:0",
+																	"typeDescriptions": {
+																		"typeIdentifier": "t_enum$_FailureInfo_$41",
+																		"typeString": "enum ComptrollerErrorReporter.FailureInfo"
+																	}
+																}
+															],
+															"expression": {
+																"argumentTypes": [
+																	{
+																		"typeIdentifier": "t_enum$_FailureInfo_$41",
+																		"typeString": "enum ComptrollerErrorReporter.FailureInfo"
+																	}
+																],
+																"id": 68,
+																"isConstant": false,
+																"isLValue": false,
+																"isPure": true,
+																"lValueRequested": false,
+																"nodeType": "ElementaryTypeNameExpression",
+																"src": "1997:4:0",
+																"typeDescriptions": {
+																	"typeIdentifier": "t_type$_t_uint256_$",
+																	"typeString": "type(uint256)"
+																},
+																"typeName": {
+																	"id": 67,
+																	"name": "uint",
+																	"nodeType": "ElementaryTypeName",
+																	"src": "1997:4:0",
+																	"typeDescriptions": {}
+																}
+															},
+															"id": 70,
+															"isConstant": false,
+															"isLValue": false,
+															"isPure": false,
+															"kind": "typeConversion",
+															"lValueRequested": false,
+															"nameLocations": [],
+															"names": [],
+															"nodeType": "FunctionCall",
+															"src": "1997:10:0",
+															"tryCall": false,
+															"typeDescriptions": {
+																"typeIdentifier": "t_uint256",
+																"typeString": "uint256"
+															}
+														},
+														{
+															"hexValue": "30",
+															"id": 71,
+															"isConstant": false,
+															"isLValue": false,
+															"isPure": true,
+															"kind": "number",
+															"lValueRequested": false,
+															"nodeType": "Literal",
+															"src": "2009:1:0",
+															"typeDescriptions": {
+																"typeIdentifier": "t_rational_0_by_1",
+																"typeString": "int_const 0"
+															},
+															"value": "0"
+														}
+													],
+													"expression": {
+														"argumentTypes": [
+															{
+																"typeIdentifier": "t_uint256",
+																"typeString": "uint256"
+															},
+															{
+																"typeIdentifier": "t_uint256",
+																"typeString": "uint256"
+															},
+															{
+																"typeIdentifier": "t_rational_0_by_1",
+																"typeString": "int_const 0"
+															}
+														],
+														"id": 62,
+														"name": "Failure",
+														"nodeType": "Identifier",
+														"overloadedDeclarations": [],
+														"referencedDeclaration": 50,
+														"src": "1978:7:0",
+														"typeDescriptions": {
+															"typeIdentifier": "t_function_event_nonpayable$_t_uint256_$_t_uint256_$_t_uint256_$returns$__$",
+															"typeString": "function (uint256,uint256,uint256)"
+														}
+													},
+													"id": 72,
+													"isConstant": false,
+													"isLValue": false,
+													"isPure": false,
+													"kind": "functionCall",
+													"lValueRequested": false,
+													"nameLocations": [],
+													"names": [],
+													"nodeType": "FunctionCall",
+													"src": "1978:33:0",
+													"tryCall": false,
+													"typeDescriptions": {
+														"typeIdentifier": "t_tuple$__$",
+														"typeString": "tuple()"
+													}
+												},
+												"id": 73,
+												"nodeType": "EmitStatement",
+												"src": "1973:38:0"
+											},
+											{
+												"expression": {
+													"arguments": [
+														{
+															"id": 76,
+															"name": "err",
+															"nodeType": "Identifier",
+															"overloadedDeclarations": [],
+															"referencedDeclaration": 54,
+															"src": "2034:3:0",
+															"typeDescriptions": {
+																"typeIdentifier": "t_enum$_Error_$20",
+																"typeString": "enum ComptrollerErrorReporter.Error"
+															}
+														}
+													],
+													"expression": {
+														"argumentTypes": [
+															{
+																"typeIdentifier": "t_enum$_Error_$20",
+																"typeString": "enum ComptrollerErrorReporter.Error"
+															}
+														],
+														"id": 75,
+														"isConstant": false,
+														"isLValue": false,
+														"isPure": true,
+														"lValueRequested": false,
+														"nodeType": "ElementaryTypeNameExpression",
+														"src": "2029:4:0",
+														"typeDescriptions": {
+															"typeIdentifier": "t_type$_t_uint256_$",
+															"typeString": "type(uint256)"
+														},
+														"typeName": {
+															"id": 74,
+															"name": "uint",
+															"nodeType": "ElementaryTypeName",
+															"src": "2029:4:0",
+															"typeDescriptions": {}
+														}
+													},
+													"id": 77,
+													"isConstant": false,
+													"isLValue": false,
+													"isPure": false,
+													"kind": "typeConversion",
+													"lValueRequested": false,
+													"nameLocations": [],
+													"names": [],
+													"nodeType": "FunctionCall",
+													"src": "2029:9:0",
+													"tryCall": false,
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"functionReturnParameters": 61,
+												"id": 78,
+												"nodeType": "Return",
+												"src": "2022:16:0"
+											}
+										]
+									},
+									"documentation": {
+										"id": 51,
+										"nodeType": "StructuredDocumentation",
+										"src": "1772:119:0",
+										"text": " @dev use this when reporting a known error from the money market or a non-upgradeable collaborator"
+									},
+									"id": 80,
+									"implemented": true,
+									"kind": "function",
+									"modifiers": [],
+									"name": "fail",
+									"nameLocation": "1905:4:0",
+									"nodeType": "FunctionDefinition",
+									"parameters": {
+										"id": 58,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 54,
+												"mutability": "mutable",
+												"name": "err",
+												"nameLocation": "1916:3:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 80,
+												"src": "1910:9:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_enum$_Error_$20",
+													"typeString": "enum ComptrollerErrorReporter.Error"
+												},
+												"typeName": {
+													"id": 53,
+													"nodeType": "UserDefinedTypeName",
+													"pathNode": {
+														"id": 52,
+														"name": "Error",
+														"nameLocations": [
+															"1910:5:0"
+														],
+														"nodeType": "IdentifierPath",
+														"referencedDeclaration": 20,
+														"src": "1910:5:0"
+													},
+													"referencedDeclaration": 20,
+													"src": "1910:5:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_enum$_Error_$20",
+														"typeString": "enum ComptrollerErrorReporter.Error"
+													}
+												},
+												"visibility": "internal"
+											},
+											{
+												"constant": false,
+												"id": 57,
+												"mutability": "mutable",
+												"name": "info",
+												"nameLocation": "1933:4:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 80,
+												"src": "1921:16:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_enum$_FailureInfo_$41",
+													"typeString": "enum ComptrollerErrorReporter.FailureInfo"
+												},
+												"typeName": {
+													"id": 56,
+													"nodeType": "UserDefinedTypeName",
+													"pathNode": {
+														"id": 55,
+														"name": "FailureInfo",
+														"nameLocations": [
+															"1921:11:0"
+														],
+														"nodeType": "IdentifierPath",
+														"referencedDeclaration": 41,
+														"src": "1921:11:0"
+													},
+													"referencedDeclaration": 41,
+													"src": "1921:11:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_enum$_FailureInfo_$41",
+														"typeString": "enum ComptrollerErrorReporter.FailureInfo"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "1909:29:0"
+									},
+									"returnParameters": {
+										"id": 61,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 60,
+												"mutability": "mutable",
+												"name": "",
+												"nameLocation": "-1:-1:-1",
+												"nodeType": "VariableDeclaration",
+												"scope": 80,
+												"src": "1957:4:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 59,
+													"name": "uint",
+													"nodeType": "ElementaryTypeName",
+													"src": "1957:4:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "1956:6:0"
+									},
+									"scope": 113,
+									"src": "1896:149:0",
+									"stateMutability": "nonpayable",
+									"virtual": false,
+									"visibility": "internal"
+								},
+								{
+									"body": {
+										"id": 111,
+										"nodeType": "Block",
+										"src": "2254:92:0",
+										"statements": [
+											{
+												"eventCall": {
+													"arguments": [
+														{
+															"arguments": [
+																{
+																	"id": 97,
+																	"name": "err",
+																	"nodeType": "Identifier",
+																	"overloadedDeclarations": [],
+																	"referencedDeclaration": 84,
+																	"src": "2282:3:0",
+																	"typeDescriptions": {
+																		"typeIdentifier": "t_enum$_Error_$20",
+																		"typeString": "enum ComptrollerErrorReporter.Error"
+																	}
+																}
+															],
+															"expression": {
+																"argumentTypes": [
+																	{
+																		"typeIdentifier": "t_enum$_Error_$20",
+																		"typeString": "enum ComptrollerErrorReporter.Error"
+																	}
+																],
+																"id": 96,
+																"isConstant": false,
+																"isLValue": false,
+																"isPure": true,
+																"lValueRequested": false,
+																"nodeType": "ElementaryTypeNameExpression",
+																"src": "2277:4:0",
+																"typeDescriptions": {
+																	"typeIdentifier": "t_type$_t_uint256_$",
+																	"typeString": "type(uint256)"
+																},
+																"typeName": {
+																	"id": 95,
+																	"name": "uint",
+																	"nodeType": "ElementaryTypeName",
+																	"src": "2277:4:0",
+																	"typeDescriptions": {}
+																}
+															},
+															"id": 98,
+															"isConstant": false,
+															"isLValue": false,
+															"isPure": false,
+															"kind": "typeConversion",
+															"lValueRequested": false,
+															"nameLocations": [],
+															"names": [],
+															"nodeType": "FunctionCall",
+															"src": "2277:9:0",
+															"tryCall": false,
+															"typeDescriptions": {
+																"typeIdentifier": "t_uint256",
+																"typeString": "uint256"
+															}
+														},
+														{
+															"arguments": [
+																{
+																	"id": 101,
+																	"name": "info",
+																	"nodeType": "Identifier",
+																	"overloadedDeclarations": [],
+																	"referencedDeclaration": 87,
+																	"src": "2293:4:0",
+																	"typeDescriptions": {
+																		"typeIdentifier": "t_enum$_FailureInfo_$41",
+																		"typeString": "enum ComptrollerErrorReporter.FailureInfo"
+																	}
+																}
+															],
+															"expression": {
+																"argumentTypes": [
+																	{
+																		"typeIdentifier": "t_enum$_FailureInfo_$41",
+																		"typeString": "enum ComptrollerErrorReporter.FailureInfo"
+																	}
+																],
+																"id": 100,
+																"isConstant": false,
+																"isLValue": false,
+																"isPure": true,
+																"lValueRequested": false,
+																"nodeType": "ElementaryTypeNameExpression",
+																"src": "2288:4:0",
+																"typeDescriptions": {
+																	"typeIdentifier": "t_type$_t_uint256_$",
+																	"typeString": "type(uint256)"
+																},
+																"typeName": {
+																	"id": 99,
+																	"name": "uint",
+																	"nodeType": "ElementaryTypeName",
+																	"src": "2288:4:0",
+																	"typeDescriptions": {}
+																}
+															},
+															"id": 102,
+															"isConstant": false,
+															"isLValue": false,
+															"isPure": false,
+															"kind": "typeConversion",
+															"lValueRequested": false,
+															"nameLocations": [],
+															"names": [],
+															"nodeType": "FunctionCall",
+															"src": "2288:10:0",
+															"tryCall": false,
+															"typeDescriptions": {
+																"typeIdentifier": "t_uint256",
+																"typeString": "uint256"
+															}
+														},
+														{
+															"id": 103,
+															"name": "opaqueError",
+															"nodeType": "Identifier",
+															"overloadedDeclarations": [],
+															"referencedDeclaration": 89,
+															"src": "2300:11:0",
+															"typeDescriptions": {
+																"typeIdentifier": "t_uint256",
+																"typeString": "uint256"
+															}
+														}
+													],
+													"expression": {
+														"argumentTypes": [
+															{
+																"typeIdentifier": "t_uint256",
+																"typeString": "uint256"
+															},
+															{
+																"typeIdentifier": "t_uint256",
+																"typeString": "uint256"
+															},
+															{
+																"typeIdentifier": "t_uint256",
+																"typeString": "uint256"
+															}
+														],
+														"id": 94,
+														"name": "Failure",
+														"nodeType": "Identifier",
+														"overloadedDeclarations": [],
+														"referencedDeclaration": 50,
+														"src": "2269:7:0",
+														"typeDescriptions": {
+															"typeIdentifier": "t_function_event_nonpayable$_t_uint256_$_t_uint256_$_t_uint256_$returns$__$",
+															"typeString": "function (uint256,uint256,uint256)"
+														}
+													},
+													"id": 104,
+													"isConstant": false,
+													"isLValue": false,
+													"isPure": false,
+													"kind": "functionCall",
+													"lValueRequested": false,
+													"nameLocations": [],
+													"names": [],
+													"nodeType": "FunctionCall",
+													"src": "2269:43:0",
+													"tryCall": false,
+													"typeDescriptions": {
+														"typeIdentifier": "t_tuple$__$",
+														"typeString": "tuple()"
+													}
+												},
+												"id": 105,
+												"nodeType": "EmitStatement",
+												"src": "2264:48:0"
+											},
+											{
+												"expression": {
+													"arguments": [
+														{
+															"id": 108,
+															"name": "err",
+															"nodeType": "Identifier",
+															"overloadedDeclarations": [],
+															"referencedDeclaration": 84,
+															"src": "2335:3:0",
+															"typeDescriptions": {
+																"typeIdentifier": "t_enum$_Error_$20",
+																"typeString": "enum ComptrollerErrorReporter.Error"
+															}
+														}
+													],
+													"expression": {
+														"argumentTypes": [
+															{
+																"typeIdentifier": "t_enum$_Error_$20",
+																"typeString": "enum ComptrollerErrorReporter.Error"
+															}
+														],
+														"id": 107,
+														"isConstant": false,
+														"isLValue": false,
+														"isPure": true,
+														"lValueRequested": false,
+														"nodeType": "ElementaryTypeNameExpression",
+														"src": "2330:4:0",
+														"typeDescriptions": {
+															"typeIdentifier": "t_type$_t_uint256_$",
+															"typeString": "type(uint256)"
+														},
+														"typeName": {
+															"id": 106,
+															"name": "uint",
+															"nodeType": "ElementaryTypeName",
+															"src": "2330:4:0",
+															"typeDescriptions": {}
+														}
+													},
+													"id": 109,
+													"isConstant": false,
+													"isLValue": false,
+													"isPure": false,
+													"kind": "typeConversion",
+													"lValueRequested": false,
+													"nameLocations": [],
+													"names": [],
+													"nodeType": "FunctionCall",
+													"src": "2330:9:0",
+													"tryCall": false,
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"functionReturnParameters": 93,
+												"id": 110,
+												"nodeType": "Return",
+												"src": "2323:16:0"
+											}
+										]
+									},
+									"documentation": {
+										"id": 81,
+										"nodeType": "StructuredDocumentation",
+										"src": "2051:107:0",
+										"text": " @dev use this when reporting an opaque error from an upgradeable collaborator contract"
+									},
+									"id": 112,
+									"implemented": true,
+									"kind": "function",
+									"modifiers": [],
+									"name": "failOpaque",
+									"nameLocation": "2172:10:0",
+									"nodeType": "FunctionDefinition",
+									"parameters": {
+										"id": 90,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 84,
+												"mutability": "mutable",
+												"name": "err",
+												"nameLocation": "2189:3:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 112,
+												"src": "2183:9:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_enum$_Error_$20",
+													"typeString": "enum ComptrollerErrorReporter.Error"
+												},
+												"typeName": {
+													"id": 83,
+													"nodeType": "UserDefinedTypeName",
+													"pathNode": {
+														"id": 82,
+														"name": "Error",
+														"nameLocations": [
+															"2183:5:0"
+														],
+														"nodeType": "IdentifierPath",
+														"referencedDeclaration": 20,
+														"src": "2183:5:0"
+													},
+													"referencedDeclaration": 20,
+													"src": "2183:5:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_enum$_Error_$20",
+														"typeString": "enum ComptrollerErrorReporter.Error"
+													}
+												},
+												"visibility": "internal"
+											},
+											{
+												"constant": false,
+												"id": 87,
+												"mutability": "mutable",
+												"name": "info",
+												"nameLocation": "2206:4:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 112,
+												"src": "2194:16:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_enum$_FailureInfo_$41",
+													"typeString": "enum ComptrollerErrorReporter.FailureInfo"
+												},
+												"typeName": {
+													"id": 86,
+													"nodeType": "UserDefinedTypeName",
+													"pathNode": {
+														"id": 85,
+														"name": "FailureInfo",
+														"nameLocations": [
+															"2194:11:0"
+														],
+														"nodeType": "IdentifierPath",
+														"referencedDeclaration": 41,
+														"src": "2194:11:0"
+													},
+													"referencedDeclaration": 41,
+													"src": "2194:11:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_enum$_FailureInfo_$41",
+														"typeString": "enum ComptrollerErrorReporter.FailureInfo"
+													}
+												},
+												"visibility": "internal"
+											},
+											{
+												"constant": false,
+												"id": 89,
+												"mutability": "mutable",
+												"name": "opaqueError",
+												"nameLocation": "2217:11:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 112,
+												"src": "2212:16:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 88,
+													"name": "uint",
+													"nodeType": "ElementaryTypeName",
+													"src": "2212:4:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "2182:47:0"
+									},
+									"returnParameters": {
+										"id": 93,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 92,
+												"mutability": "mutable",
+												"name": "",
+												"nameLocation": "-1:-1:-1",
+												"nodeType": "VariableDeclaration",
+												"scope": 112,
+												"src": "2248:4:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 91,
+													"name": "uint",
+													"nodeType": "ElementaryTypeName",
+													"src": "2248:4:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "2247:6:0"
+									},
+									"scope": 113,
+									"src": "2163:183:0",
+									"stateMutability": "nonpayable",
+									"virtual": false,
+									"visibility": "internal"
+								}
+							],
+							"scope": 216,
+							"src": "67:2281:0",
+							"usedErrors": [],
+							"usedEvents": [
+								50
+							]
+						},
+						{
+							"abstract": false,
+							"baseContracts": [],
+							"canonicalName": "TokenErrorReporter",
+							"contractDependencies": [],
+							"contractKind": "contract",
+							"fullyImplemented": true,
+							"id": 215,
+							"linearizedBaseContracts": [
+								215
+							],
+							"name": "TokenErrorReporter",
+							"nameLocation": "2359:18:0",
+							"nodeType": "ContractDefinition",
+							"nodes": [
+								{
+									"constant": true,
+									"functionSelector": "69ab3250",
+									"id": 116,
+									"mutability": "constant",
+									"name": "NO_ERROR",
+									"nameLocation": "2405:8:0",
+									"nodeType": "VariableDeclaration",
+									"scope": 215,
+									"src": "2384:33:0",
+									"stateVariable": true,
+									"storageLocation": "default",
+									"typeDescriptions": {
+										"typeIdentifier": "t_uint256",
+										"typeString": "uint256"
+									},
+									"typeName": {
+										"id": 114,
+										"name": "uint",
+										"nodeType": "ElementaryTypeName",
+										"src": "2384:4:0",
+										"typeDescriptions": {
+											"typeIdentifier": "t_uint256",
+											"typeString": "uint256"
+										}
+									},
+									"value": {
+										"hexValue": "30",
+										"id": 115,
+										"isConstant": false,
+										"isLValue": false,
+										"isPure": true,
+										"kind": "number",
+										"lValueRequested": false,
+										"nodeType": "Literal",
+										"src": "2416:1:0",
+										"typeDescriptions": {
+											"typeIdentifier": "t_rational_0_by_1",
+											"typeString": "int_const 0"
+										},
+										"value": "0"
+									},
+									"visibility": "public"
+								},
+								{
+									"errorSelector": "113a84ee",
+									"id": 120,
+									"name": "TransferComptrollerRejection",
+									"nameLocation": "2461:28:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 119,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 118,
+												"mutability": "mutable",
+												"name": "errorCode",
+												"nameLocation": "2498:9:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 120,
+												"src": "2490:17:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 117,
+													"name": "uint256",
+													"nodeType": "ElementaryTypeName",
+													"src": "2490:7:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "2489:19:0"
+									},
+									"src": "2455:54:0"
+								},
+								{
+									"errorSelector": "8cd22d19",
+									"id": 122,
+									"name": "TransferNotAllowed",
+									"nameLocation": "2520:18:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 121,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "2538:2:0"
+									},
+									"src": "2514:27:0"
+								},
+								{
+									"errorSelector": "f4f600dd",
+									"id": 124,
+									"name": "TransferNotEnough",
+									"nameLocation": "2552:17:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 123,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "2569:2:0"
+									},
+									"src": "2546:26:0"
+								},
+								{
+									"errorSelector": "c265b0ce",
+									"id": 126,
+									"name": "TransferTooMuch",
+									"nameLocation": "2583:15:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 125,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "2598:2:0"
+									},
+									"src": "2577:24:0"
+								},
+								{
+									"errorSelector": "49abd4fd",
+									"id": 130,
+									"name": "MintComptrollerRejection",
+									"nameLocation": "2613:24:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 129,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 128,
+												"mutability": "mutable",
+												"name": "errorCode",
+												"nameLocation": "2646:9:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 130,
+												"src": "2638:17:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 127,
+													"name": "uint256",
+													"nodeType": "ElementaryTypeName",
+													"src": "2638:7:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "2637:19:0"
+									},
+									"src": "2607:50:0"
+								},
+								{
+									"errorSelector": "38d88597",
+									"id": 132,
+									"name": "MintFreshnessCheck",
+									"nameLocation": "2668:18:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 131,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "2686:2:0"
+									},
+									"src": "2662:27:0"
+								},
+								{
+									"errorSelector": "480f4247",
+									"id": 136,
+									"name": "RedeemComptrollerRejection",
+									"nameLocation": "2701:26:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 135,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 134,
+												"mutability": "mutable",
+												"name": "errorCode",
+												"nameLocation": "2736:9:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 136,
+												"src": "2728:17:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 133,
+													"name": "uint256",
+													"nodeType": "ElementaryTypeName",
+													"src": "2728:7:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "2727:19:0"
+									},
+									"src": "2695:52:0"
+								},
+								{
+									"errorSelector": "97b5cfcd",
+									"id": 138,
+									"name": "RedeemFreshnessCheck",
+									"nameLocation": "2758:20:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 137,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "2778:2:0"
+									},
+									"src": "2752:29:0"
+								},
+								{
+									"errorSelector": "91240a1b",
+									"id": 140,
+									"name": "RedeemTransferOutNotPossible",
+									"nameLocation": "2792:28:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 139,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "2820:2:0"
+									},
+									"src": "2786:37:0"
+								},
+								{
+									"errorSelector": "918db40f",
+									"id": 144,
+									"name": "BorrowComptrollerRejection",
+									"nameLocation": "2835:26:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 143,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 142,
+												"mutability": "mutable",
+												"name": "errorCode",
+												"nameLocation": "2870:9:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 144,
+												"src": "2862:17:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 141,
+													"name": "uint256",
+													"nodeType": "ElementaryTypeName",
+													"src": "2862:7:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "2861:19:0"
+									},
+									"src": "2829:52:0"
+								},
+								{
+									"errorSelector": "3a363184",
+									"id": 146,
+									"name": "BorrowFreshnessCheck",
+									"nameLocation": "2892:20:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 145,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "2912:2:0"
+									},
+									"src": "2886:29:0"
+								},
+								{
+									"errorSelector": "48c25881",
+									"id": 148,
+									"name": "BorrowCashNotAvailable",
+									"nameLocation": "2926:22:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 147,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "2948:2:0"
+									},
+									"src": "2920:31:0"
+								},
+								{
+									"errorSelector": "8c81362d",
+									"id": 152,
+									"name": "RepayBorrowComptrollerRejection",
+									"nameLocation": "2963:31:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 151,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 150,
+												"mutability": "mutable",
+												"name": "errorCode",
+												"nameLocation": "3003:9:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 152,
+												"src": "2995:17:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 149,
+													"name": "uint256",
+													"nodeType": "ElementaryTypeName",
+													"src": "2995:7:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "2994:19:0"
+									},
+									"src": "2957:57:0"
+								},
+								{
+									"errorSelector": "c9021e2f",
+									"id": 154,
+									"name": "RepayBorrowFreshnessCheck",
+									"nameLocation": "3025:25:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 153,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "3050:2:0"
+									},
+									"src": "3019:34:0"
+								},
+								{
+									"errorSelector": "1429a2f2",
+									"id": 158,
+									"name": "LiquidateComptrollerRejection",
+									"nameLocation": "3065:29:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 157,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 156,
+												"mutability": "mutable",
+												"name": "errorCode",
+												"nameLocation": "3103:9:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 158,
+												"src": "3095:17:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 155,
+													"name": "uint256",
+													"nodeType": "ElementaryTypeName",
+													"src": "3095:7:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "3094:19:0"
+									},
+									"src": "3059:55:0"
+								},
+								{
+									"errorSelector": "80965b1b",
+									"id": 160,
+									"name": "LiquidateFreshnessCheck",
+									"nameLocation": "3125:23:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 159,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "3148:2:0"
+									},
+									"src": "3119:32:0"
+								},
+								{
+									"errorSelector": "82379c68",
+									"id": 162,
+									"name": "LiquidateCollateralFreshnessCheck",
+									"nameLocation": "3162:33:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 161,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "3195:2:0"
+									},
+									"src": "3156:42:0"
+								},
+								{
+									"errorSelector": "0eac8973",
+									"id": 166,
+									"name": "LiquidateAccrueBorrowInterestFailed",
+									"nameLocation": "3209:35:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 165,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 164,
+												"mutability": "mutable",
+												"name": "errorCode",
+												"nameLocation": "3253:9:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 166,
+												"src": "3245:17:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 163,
+													"name": "uint256",
+													"nodeType": "ElementaryTypeName",
+													"src": "3245:7:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "3244:19:0"
+									},
+									"src": "3203:61:0"
+								},
+								{
+									"errorSelector": "7dd4936e",
+									"id": 170,
+									"name": "LiquidateAccrueCollateralInterestFailed",
+									"nameLocation": "3275:39:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 169,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 168,
+												"mutability": "mutable",
+												"name": "errorCode",
+												"nameLocation": "3323:9:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 170,
+												"src": "3315:17:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 167,
+													"name": "uint256",
+													"nodeType": "ElementaryTypeName",
+													"src": "3315:7:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "3314:19:0"
+									},
+									"src": "3269:65:0"
+								},
+								{
+									"errorSelector": "6f469884",
+									"id": 172,
+									"name": "LiquidateLiquidatorIsBorrower",
+									"nameLocation": "3345:29:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 171,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "3374:2:0"
+									},
+									"src": "3339:38:0"
+								},
+								{
+									"errorSelector": "d29da7ef",
+									"id": 174,
+									"name": "LiquidateCloseAmountIsZero",
+									"nameLocation": "3388:26:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 173,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "3414:2:0"
+									},
+									"src": "3382:35:0"
+								},
+								{
+									"errorSelector": "b3058b76",
+									"id": 176,
+									"name": "LiquidateCloseAmountIsUintMax",
+									"nameLocation": "3428:29:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 175,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "3457:2:0"
+									},
+									"src": "3422:38:0"
+								},
+								{
+									"errorSelector": "551d784f",
+									"id": 180,
+									"name": "LiquidateRepayBorrowFreshFailed",
+									"nameLocation": "3471:31:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 179,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 178,
+												"mutability": "mutable",
+												"name": "errorCode",
+												"nameLocation": "3511:9:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 180,
+												"src": "3503:17:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 177,
+													"name": "uint256",
+													"nodeType": "ElementaryTypeName",
+													"src": "3503:7:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "3502:19:0"
+									},
+									"src": "3465:57:0"
+								},
+								{
+									"errorSelector": "c7c01c66",
+									"id": 184,
+									"name": "LiquidateSeizeComptrollerRejection",
+									"nameLocation": "3534:34:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 183,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 182,
+												"mutability": "mutable",
+												"name": "errorCode",
+												"nameLocation": "3577:9:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 184,
+												"src": "3569:17:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 181,
+													"name": "uint256",
+													"nodeType": "ElementaryTypeName",
+													"src": "3569:7:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "3568:19:0"
+									},
+									"src": "3528:60:0"
+								},
+								{
+									"errorSelector": "7528c4ce",
+									"id": 186,
+									"name": "LiquidateSeizeLiquidatorIsBorrower",
+									"nameLocation": "3599:34:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 185,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "3633:2:0"
+									},
+									"src": "3593:43:0"
+								},
+								{
+									"errorSelector": "6e893ca4",
+									"id": 188,
+									"name": "AcceptAdminPendingAdminCheck",
+									"nameLocation": "3648:28:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 187,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "3676:2:0"
+									},
+									"src": "3642:37:0"
+								},
+								{
+									"errorSelector": "d219dc1f",
+									"id": 190,
+									"name": "SetComptrollerOwnerCheck",
+									"nameLocation": "3691:24:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 189,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "3715:2:0"
+									},
+									"src": "3685:33:0"
+								},
+								{
+									"errorSelector": "5cb56c2b",
+									"id": 192,
+									"name": "SetPendingAdminOwnerCheck",
+									"nameLocation": "3729:25:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 191,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "3754:2:0"
+									},
+									"src": "3723:34:0"
+								},
+								{
+									"errorSelector": "240b6af6",
+									"id": 194,
+									"name": "SetReserveFactorAdminCheck",
+									"nameLocation": "3769:26:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 193,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "3795:2:0"
+									},
+									"src": "3763:35:0"
+								},
+								{
+									"errorSelector": "fbf94d6e",
+									"id": 196,
+									"name": "SetReserveFactorFreshCheck",
+									"nameLocation": "3809:26:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 195,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "3835:2:0"
+									},
+									"src": "3803:35:0"
+								},
+								{
+									"errorSelector": "e2e441e6",
+									"id": 198,
+									"name": "SetReserveFactorBoundsCheck",
+									"nameLocation": "3849:27:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 197,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "3876:2:0"
+									},
+									"src": "3843:36:0"
+								},
+								{
+									"errorSelector": "38acf799",
+									"id": 202,
+									"name": "AddReservesFactorFreshCheck",
+									"nameLocation": "3891:27:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 201,
+										"nodeType": "ParameterList",
+										"parameters": [
+											{
+												"constant": false,
+												"id": 200,
+												"mutability": "mutable",
+												"name": "actualAddAmount",
+												"nameLocation": "3927:15:0",
+												"nodeType": "VariableDeclaration",
+												"scope": 202,
+												"src": "3919:23:0",
+												"stateVariable": false,
+												"storageLocation": "default",
+												"typeDescriptions": {
+													"typeIdentifier": "t_uint256",
+													"typeString": "uint256"
+												},
+												"typeName": {
+													"id": 199,
+													"name": "uint256",
+													"nodeType": "ElementaryTypeName",
+													"src": "3919:7:0",
+													"typeDescriptions": {
+														"typeIdentifier": "t_uint256",
+														"typeString": "uint256"
+													}
+												},
+												"visibility": "internal"
+											}
+										],
+										"src": "3918:25:0"
+									},
+									"src": "3885:59:0"
+								},
+								{
+									"errorSelector": "f7e5e6d0",
+									"id": 204,
+									"name": "ReduceReservesAdminCheck",
+									"nameLocation": "3956:24:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 203,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "3980:2:0"
+									},
+									"src": "3950:33:0"
+								},
+								{
+									"errorSelector": "dff50cb0",
+									"id": 206,
+									"name": "ReduceReservesFreshCheck",
+									"nameLocation": "3994:24:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 205,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "4018:2:0"
+									},
+									"src": "3988:33:0"
+								},
+								{
+									"errorSelector": "3345e999",
+									"id": 208,
+									"name": "ReduceReservesCashNotAvailable",
+									"nameLocation": "4032:30:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 207,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "4062:2:0"
+									},
+									"src": "4026:39:0"
+								},
+								{
+									"errorSelector": "f1a5300a",
+									"id": 210,
+									"name": "ReduceReservesCashValidation",
+									"nameLocation": "4076:28:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 209,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "4104:2:0"
+									},
+									"src": "4070:37:0"
+								},
+								{
+									"errorSelector": "407fded5",
+									"id": 212,
+									"name": "SetInterestRateModelOwnerCheck",
+									"nameLocation": "4119:30:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 211,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "4149:2:0"
+									},
+									"src": "4113:39:0"
+								},
+								{
+									"errorSelector": "17c54b96",
+									"id": 214,
+									"name": "SetInterestRateModelFreshCheck",
+									"nameLocation": "4163:30:0",
+									"nodeType": "ErrorDefinition",
+									"parameters": {
+										"id": 213,
+										"nodeType": "ParameterList",
+										"parameters": [],
+										"src": "4193:2:0"
+									},
+									"src": "4157:39:0"
+								}
+							],
+							"scope": 216,
+							"src": "2350:1848:0",
+							"usedErrors": [
+								120,
+								122,
+								124,
+								126,
+								130,
+								132,
+								136,
+								138,
+								140,
+								144,
+								146,
+								148,
+								152,
+								154,
+								158,
+								160,
+								162,
+								166,
+								170,
+								172,
+								174,
+								176,
+								180,
+								184,
+								186,
+								188,
+								190,
+								192,
+								194,
+								196,
+								198,
+								202,
+								204,
+								206,
+								208,
+								210,
+								212,
+								214
+							],
+							"usedEvents": []
+						}
+					],
+					"src": "41:4158:0"
+				},
+				"id": 0
+			}
+		}
+	}
+}

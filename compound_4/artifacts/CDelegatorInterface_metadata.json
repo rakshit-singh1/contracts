@@ -1,0 +1,137 @@
+{
+	"compiler": {
+		"version": "0.8.21+commit.d9974bed"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "oldImplementation",
+						"type": "address"
+					},
+					{
+						"indexed": false,
+						"internalType": "address",
+						"name": "newImplementation",
+						"type": "address"
+					}
+				],
+				"name": "NewImplementation",
+				"type": "event"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "implementation_",
+						"type": "address"
+					},
+					{
+						"internalType": "bool",
+						"name": "allowResign",
+						"type": "bool"
+					},
+					{
+						"internalType": "bytes",
+						"name": "becomeImplementationData",
+						"type": "bytes"
+					}
+				],
+				"name": "_setImplementation",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "implementation",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {
+				"_setImplementation(address,bool,bytes)": {
+					"params": {
+						"allowResign": "Flag to indicate whether to call _resignImplementation on the old implementation",
+						"becomeImplementationData": "The encoded bytes data to be passed to _becomeImplementation",
+						"implementation_": "The address of the new implementation for delegation"
+					}
+				}
+			},
+			"version": 1
+		},
+		"userdoc": {
+			"events": {
+				"NewImplementation(address,address)": {
+					"notice": "Emitted when implementation is changed"
+				}
+			},
+			"kind": "user",
+			"methods": {
+				"_setImplementation(address,bool,bytes)": {
+					"notice": "Called by the admin to update the implementation of the delegator"
+				},
+				"implementation()": {
+					"notice": "Implementation address for this abstract contract"
+				}
+			},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"compound_3/CTokenInterface.sol": "CDelegatorInterface"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"compound_3/CTokenInterface.sol": {
+			"keccak256": "0x527a0e18165d0902e57d45ad7d6b693ab8b0cf76cae1e5b7b617a2215f4bc396",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://72d87f440963ddbbb49092a674fb491017f47b236209177d23887243a9ee0e43",
+				"dweb:/ipfs/QmZtrA2TmEGggTWdzeixXFuMC1LvRJszs3M16YTrGtEboV"
+			]
+		},
+		"compound_3/ComptrollerInterface.sol": {
+			"keccak256": "0x08542fec09cde623e986c10816aaaafcb7f277d33705f4aaf9073356be6195aa",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://2ea6320cc5492e44f7fae6d80441f31300881fedd26c54111353c95ccd770c39",
+				"dweb:/ipfs/QmRpERKv7u62uBWHPq2fpfopgMw2XA49jrYBqNQtGW9MLa"
+			]
+		},
+		"compound_3/InterestRateModel.sol": {
+			"keccak256": "0x56d0a0a89e45b7d917a0c59fe51e6038a0c0e8748124283421b7d751a3cab549",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://549cc4a9632fade16342a52ecdffe5daed44b95fda38449ebdd23364e608aed9",
+				"dweb:/ipfs/QmZaZDGwToDNngHTasfr5wKrPZgtaJoLtV5ckrZS68XDAm"
+			]
+		}
+	},
+	"version": 1
+}

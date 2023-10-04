@@ -1,0 +1,108 @@
+{
+	"compiler": {
+		"version": "0.8.21+commit.d9974bed"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "ad",
+						"type": "address"
+					}
+				],
+				"name": "getDetails",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "contact",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "residenceAddress",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "aadharNumber",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_name",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_contact",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_residenceAddress",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_aadharNumber",
+						"type": "string"
+					}
+				],
+				"name": "setDetails",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"kyc.sol": "KYC"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"kyc.sol": {
+			"keccak256": "0x764e9e1839b9747d6ca74a26e421d9f37cd719a1c936042e99e5c83559442e82",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://635577878b370ec59b71cdac9191f87b7a29a246bc212f4cf4b0b190e3db66b9",
+				"dweb:/ipfs/QmaBDawURyAyKSB92BkEsf4B1tssXB23RzvWr9EPwxFJWD"
+			]
+		}
+	},
+	"version": 1
+}

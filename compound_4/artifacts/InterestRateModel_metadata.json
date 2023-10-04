@@ -1,0 +1,140 @@
+{
+	"compiler": {
+		"version": "0.8.21+commit.d9974bed"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "cash",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "borrows",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "reserves",
+						"type": "uint256"
+					}
+				],
+				"name": "getBorrowRate",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint256",
+						"name": "cash",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "borrows",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "reserves",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "reserveFactorMantissa",
+						"type": "uint256"
+					}
+				],
+				"name": "getSupplyRate",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"author": "Compound",
+			"kind": "dev",
+			"methods": {
+				"getBorrowRate(uint256,uint256,uint256)": {
+					"params": {
+						"borrows": "The total amount of borrows the market has outstanding",
+						"cash": "The total amount of cash the market has",
+						"reserves": "The total amnount of reserves the market has"
+					},
+					"returns": {
+						"_0": "The borrow rate per block (as a percentage, and scaled by 1e18)"
+					}
+				},
+				"getSupplyRate(uint256,uint256,uint256,uint256)": {
+					"params": {
+						"borrows": "The total amount of borrows the market has outstanding",
+						"cash": "The total amount of cash the market has",
+						"reserveFactorMantissa": "The current reserve factor the market has",
+						"reserves": "The total amnount of reserves the market has"
+					},
+					"returns": {
+						"_0": "The supply rate per block (as a percentage, and scaled by 1e18)"
+					}
+				}
+			},
+			"title": "Compound's InterestRateModel Interface",
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"getBorrowRate(uint256,uint256,uint256)": {
+					"notice": "Calculates the current borrow interest rate per block"
+				},
+				"getSupplyRate(uint256,uint256,uint256,uint256)": {
+					"notice": "Calculates the current supply interest rate per block"
+				}
+			},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"compound_3/interestRateModel.sol": "InterestRateModel"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"compound_3/interestRateModel.sol": {
+			"keccak256": "0x56d0a0a89e45b7d917a0c59fe51e6038a0c0e8748124283421b7d751a3cab549",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://549cc4a9632fade16342a52ecdffe5daed44b95fda38449ebdd23364e608aed9",
+				"dweb:/ipfs/QmZaZDGwToDNngHTasfr5wKrPZgtaJoLtV5ckrZS68XDAm"
+			]
+		}
+	},
+	"version": 1
+}

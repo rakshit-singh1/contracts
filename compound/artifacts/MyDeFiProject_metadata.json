@@ -1,0 +1,204 @@
+{
+	"compiler": {
+		"version": "0.8.21+commit.d9974bed"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_dai",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_cDai",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_bat",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_cBat",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_comptroller",
+						"type": "address"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [],
+				"name": "BALANCE",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "borrow",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "cashout",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "invest",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "payback",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "return_addresses",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address payable",
+						"name": "receiver",
+						"type": "address"
+					}
+				],
+				"name": "transferEther",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"compound/compound_protocol.sol": "MyDeFiProject"
+		},
+		"evmVersion": "shanghai",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"@openzeppelin/contracts/access/Ownable.sol": {
+			"keccak256": "0xba43b97fba0d32eb4254f6a5a297b39a19a247082a02d6e69349e071e2946218",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://fc980984badf3984b6303b377711220e067722bbd6a135b24669ff5069ef9f32",
+				"dweb:/ipfs/QmPHXMSXj99XjSVM21YsY6aNtLLjLVXDbyN76J5HQYvvrz"
+			]
+		},
+		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
+			"keccak256": "0x287b55befed2961a7eabd7d7b1b2839cbca8a5b80ef8dcbb25ed3d4c2002c305",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://bd39944e8fc06be6dbe2dd1d8449b5336e23c6a7ba3e8e9ae5ae0f37f35283f5",
+				"dweb:/ipfs/QmPV3FGYjVwvKSgAXKUN3r9T9GwniZz83CxBpM7vyj2G53"
+			]
+		},
+		"@openzeppelin/contracts/utils/Context.sol": {
+			"keccak256": "0xe2e337e6dde9ef6b680e07338c493ebea1b5fd09b43424112868e9cc1706bca7",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://6df0ddf21ce9f58271bdfaa85cde98b200ef242a05a3f85c2bc10a8294800a92",
+				"dweb:/ipfs/QmRK2Y5Yc6BK7tGKkgsgn3aJEQGi5aakeSPZvS65PV8Xp3"
+			]
+		},
+		"compound/CTokenInterfaces.sol": {
+			"keccak256": "0xe64de260aa43b901ef618eb19debc360a62200be932ec1c15364a4df55a24d9b",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://65bc9d036437e50a9b23d15b34a22dcca23096c4ffe04e223031ef64f6712f94",
+				"dweb:/ipfs/QmS67hnzqGkiSMdZiGr9ttiyjeHMqKRZGasxECqk3zor5T"
+			]
+		},
+		"compound/ComptrollerInterface.sol": {
+			"keccak256": "0x9ecfc2cf46db2228bde33d1f5b8e36569924d5ab7457bcc38c7598d135f359f9",
+			"license": "BSD-3-Clause",
+			"urls": [
+				"bzz-raw://3d4c267aa435fb893f644ec86d4757da8f722024884b899580a6a3882fbb3a34",
+				"dweb:/ipfs/QmXeeLZWPRjYi7TYYSWLdvqbKBXmJbsgDCoA2hDKmD54B5"
+			]
+		},
+		"compound/compound_protocol.sol": {
+			"keccak256": "0xe7a1e5b4de400f8cd5894650148aaa68ab7646b80527598843decabb2542e5cc",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://7ce54736e38189d438fcfa0496ff9430f269aafdcf2cae95ec018ef617b247ac",
+				"dweb:/ipfs/QmQRLZoCazwJYVhP5baEVg9xXYVGDpanwm2xrY99vtoUv9"
+			]
+		}
+	},
+	"version": 1
+}
