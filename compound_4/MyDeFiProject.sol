@@ -61,14 +61,14 @@ contract MyDeFiProject is Loan{
         // UnderlyingPrice[currId()-1] = priceOracle.getUnderlyingPrice(address(cToken));
         safeMint(msg.sender);
         Liquidity[currId()-1] = cToken.balanceOf(address(this));
-        uint tokenToWithdraw = cToken.balanceOf(address(this));
-        tokenToWithdraw = cToken.balanceOf(address(this)) - tokenToWithdraw;
+        uint tokenWithdraw = cToken.balanceOf(address(this));
+        tokenWithdraw = cToken.balanceOf(address(this)) - tokenWithdraw;
     }
     // function interestRate(uint id) public view returns (uint){
     //     return JumpRateModel.getSupplyRate(Liquidity[id], totalBorrows, cToken.balanceOf(address(this))-totalBorrows, cToken.reserveFactorMantissa());
     // }
     function redeem(uint id) external {
-        //require(ownerOf(id)== msg.sender,"You are not allowed to recieve")
+        //require(ownerOf(id)== msg.sender,"You are not allowed to recieve");
         uint result = cToken.redeem(Liquidity[id]) /*+ interestRate(id)*/;
         //uint bal= token.balanceOf(address(msg.sender));
         require(result == 0, "redeem() failed");
@@ -99,7 +99,7 @@ contract MyDeFiProject is Loan{
     // }
 
     // function repayBorrow(uint underlyingAmount) external {
-    //     totalBorrows-=underlyingAmount;
+    //     totalBorrows-=underlyingAmount;0
     //     address underlyingAddress = cToken.underlying();
     //     IERC20(underlyingAddress).approve(address(cToken), underlyingAmount);
     //     uint result = cToken.repayBorrow(underlyingAmount);

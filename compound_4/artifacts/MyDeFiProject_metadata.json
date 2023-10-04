@@ -9,11 +9,6 @@
 				"inputs": [
 					{
 						"internalType": "address",
-						"name": "_comptroller",
-						"type": "address"
-					},
-					{
-						"internalType": "address",
 						"name": "_token",
 						"type": "address"
 					},
@@ -198,19 +193,6 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "borrowAmount",
-						"type": "uint256"
-					}
-				],
-				"name": "borrow",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
 						"name": "tokenId",
 						"type": "uint256"
 					}
@@ -231,26 +213,6 @@
 					}
 				],
 				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "comptroller",
-				"outputs": [
-					{
-						"internalType": "contract ComptrollerInterface",
-						"name": "",
-						"type": "address"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "enterMarket",
-				"outputs": [],
-				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -370,19 +332,6 @@
 			{
 				"inputs": [],
 				"name": "renounceOwnership",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "underlyingAmount",
-						"type": "uint256"
-					}
-				],
-				"name": "repayBorrow",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -855,14 +804,6 @@
 				"dweb:/ipfs/QmNuoiCJc2tJWGdm9Kt52Fj85hdqbkgxWUzRdJAG7dSurc"
 			]
 		},
-		"compound_4/ComptrollerInterface.sol": {
-			"keccak256": "0x08542fec09cde623e986c10816aaaafcb7f277d33705f4aaf9073356be6195aa",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://2ea6320cc5492e44f7fae6d80441f31300881fedd26c54111353c95ccd770c39",
-				"dweb:/ipfs/QmRpERKv7u62uBWHPq2fpfopgMw2XA49jrYBqNQtGW9MLa"
-			]
-		},
 		"compound_4/LoanToken.sol": {
 			"keccak256": "0xd1594f99c2b20098da3663e5a9e6d363f221851ccad0f68ff3f1c82cff5faec9",
 			"license": "MIT",
@@ -872,19 +813,11 @@
 			]
 		},
 		"compound_4/MyDeFiProject.sol": {
-			"keccak256": "0x79cf091a438e64547fc9ee46785a172b00662c8a1b024bab3df57588b34f7a19",
+			"keccak256": "0x35ef49e411a969b801f5fa455b6bb44a2a6000309b75e674b1aacad0cd9e05cf",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://c75772f60da76c09f8065b89286ef42ebf2796d8b500e982e9e3fc5cef4e28e4",
-				"dweb:/ipfs/QmWvnH5wD14Tm7TbCaRzQUneTHDMs9Za2T7PQkSZ187tjw"
-			]
-		},
-		"compound_4/PriceOracleInterface.sol": {
-			"keccak256": "0xdd2888d93405093ee419b23e5567b4d51f2f2bd8cfcb53a4afcffbdd5e9aa784",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://a4566b682101f2ac0966eb5b2579b196e07a83672cc0899a9afd39bde527694a",
-				"dweb:/ipfs/QmdDt15FEVkLb6CpFF1Bc4hWfb8EjYUeXoQJjpbE5yXAFk"
+				"bzz-raw://850312c1902307dc7ce8216327d3cca94912a6061a531cf6adebc0f58959af8b",
+				"dweb:/ipfs/QmP9qzSqPpatFzr6Lb2w5gjsr1D7hmBM2RKVyszBai8Wya"
 			]
 		}
 	},
