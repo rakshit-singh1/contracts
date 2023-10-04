@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.21+commit.d9974bed"
+		"version": "0.8.18+commit.87f61d96"
 	},
 	"language": "Solidity",
 	"output": {
@@ -715,7 +715,7 @@
 		"compilationTarget": {
 			"compound_4/MyDeFiProject.sol": "MyDeFiProject"
 		},
-		"evmVersion": "shanghai",
+		"evmVersion": "paris",
 		"libraries": {},
 		"metadata": {
 			"bytecodeHash": "ipfs"
@@ -872,11 +872,11 @@
 			]
 		},
 		"compound_4/MyDeFiProject.sol": {
-			"keccak256": "0x1fcd5436feed6fabff4209d8b8e24600c1a7fc21a027d036a33c99228e5df0d2",
+			"keccak256": "0x79cf091a438e64547fc9ee46785a172b00662c8a1b024bab3df57588b34f7a19",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://554a2330d74e81e6298a72fba2dc8793421cfbacd5d76306afe82f93fee8d65c",
-				"dweb:/ipfs/QmUACSFGemgR6Tb3gnbqvaDEMeaTLPZ9SP7YvjspvoyMrV"
+				"bzz-raw://c75772f60da76c09f8065b89286ef42ebf2796d8b500e982e9e3fc5cef4e28e4",
+				"dweb:/ipfs/QmWvnH5wD14Tm7TbCaRzQUneTHDMs9Za2T7PQkSZ187tjw"
 			]
 		},
 		"compound_4/PriceOracleInterface.sol": {
