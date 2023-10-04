@@ -4,8 +4,8 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "./CTokenInterface.sol";
 // import "./ComptrollerInterface.sol";
-import "./PriceOracleInterface.sol";
-//import "./interestRateModel.sol";
+// import "./PriceOracleInterface.sol";
+// 0import "./interestRateModel.sol";
 import "./LoanToken.sol";
 
 contract MyDeFiProject is Loan{
@@ -68,6 +68,7 @@ contract MyDeFiProject is Loan{
     //     return JumpRateModel.getSupplyRate(Liquidity[id], totalBorrows, cToken.balanceOf(address(this))-totalBorrows, cToken.reserveFactorMantissa());
     // }
     function redeem(uint id) external {
+        //require(ownerOf(id)== msg.sender,"You are not allowed to recieve")
         uint result = cToken.redeem(Liquidity[id]) /*+ interestRate(id)*/;
         //uint bal= token.balanceOf(address(msg.sender));
         require(result == 0, "redeem() failed");
